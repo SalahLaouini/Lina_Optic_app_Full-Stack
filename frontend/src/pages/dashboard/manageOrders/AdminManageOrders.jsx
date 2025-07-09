@@ -30,6 +30,9 @@ const AdminManageOrders = () => {
   // 📋 Store edited values (isPaid, isDelivered)
   const [updatedValues, setUpdatedValues] = useState({});
 
+  // 🔍 Search input state for filtering orders by their ID
+const [searchQuery, setSearchQuery] = useState("");
+
   // ✅ Handle saving an edited order
   const handleEdit = async (orderId, order) => {
     try {
@@ -97,6 +100,11 @@ const AdminManageOrders = () => {
     );
   }
 
+  // 🔎 Filter orders to only show those matching the search query (case-insensitive)
+const filteredOrders = orders.filter((order) =>
+  order._id.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
   // ❗ Show error message if fetch fails
   if (error) return <p style={{ color: "red" }}>{error.message}</p>;
 
@@ -110,14 +118,22 @@ const AdminManageOrders = () => {
       {/* Main container for the orders table */}
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
       
-        {/* Table header */}
-        <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-blueGray-700">Toutes les Commandes</h3>
-            </div>
-          </div>
-        </div>
+       {/* 🧾 Header with search bar */}
+<div className="rounded-t px-4 py-3 border-b bg-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+  {/* Title */}
+  <h3 className="font-semibold text-base text-blueGray-700">
+    Toutes les Commandes
+  </h3>
+
+  {/* 🔍 Search input for Order ID */}
+  <input
+    type="text"
+    placeholder="Rechercher par ID Commande..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    className="w-full sm:w-64 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</div>
 
         {/* Table content scrollable */}
         <div className="block w-full overflow-x-auto">
@@ -143,7 +159,7 @@ const AdminManageOrders = () => {
 
             {/* Table body containing order rows */}
             <tbody className="text-sm font-medium text-gray-600">
-              {orders.map((order, index) => (
+              {filteredOrders.map((order, index) => (
                 <tr key={`${order._id}-${index}`} className="border-b hover:bg-gray-100 transition">
                   
                   {/* Order number */}
