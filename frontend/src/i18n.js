@@ -471,28 +471,6 @@ i18n
 
 
 
-          register: {
-            create_account: "Créer un compte",
-            email_label: "Adresse e-mail",
-            email_placeholder: "Entrez votre e-mail",
-            email_required: "L'e-mail est requis.",
-            password_label: "Mot de passe",
-            password_placeholder: "Entrez votre mot de passe",
-            password_required: "Le mot de passe est requis.",
-            register_btn: "S'inscrire",
-            have_account: "Vous avez déjà un compte ?",
-            login_link: "Se connecter",
-            google_btn: "S'inscrire avec Google",
-            success_title: "Inscription réussie !",
-            success_text: "Bienvenue dans la boutique Wahret Zmen.",
-            error_title: "Échec de l'inscription",
-            error_text: "Veuillez fournir un e-mail et un mot de passe valides.",
-            google_success_title: "Inscription Google réussie !",
-            google_error_title: "Échec de la connexion Google",
-            continue_shopping: "Continuer vos achats",
-            try_again: "Réessayer",
-            rights: "Tous droits réservés."
-          },
     
           login: {
             title: "Bon retour",

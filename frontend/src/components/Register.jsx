@@ -4,142 +4,138 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext";
-import { useTranslation } from "react-i18next";
 import "../Styles/StylesRegister.css";
 
 const Register = () => {
-  // 🔐 Local state for optional messages (if needed)
   const [message, setMessage] = useState("");
-
-  // 🔐 Auth methods from context
   const { registerUser, signInWithGoogle } = useAuth();
-
-  // 🚀 Navigation after registration
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  // 📋 React Hook Form setup
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
-  // 🌍 i18n translation hook
-  const { t } = useTranslation();
-
-  // ✅ Success alert with SweetAlert
+  // ✅ SweetAlert - Success
   const showSuccessAlert = (title, text) => {
     Swal.fire({
       title,
       text,
       icon: "success",
       confirmButtonColor: "#444",
-      confirmButtonText: t("register.continue_shopping"),
+      confirmButtonText: "Continuer vers l'accueil",
       timer: 2000,
     });
   };
 
-  // ❌ Error alert with SweetAlert
+  // ❌ SweetAlert - Error
   const showErrorAlert = (title, text) => {
     Swal.fire({
       title,
       text,
       icon: "error",
       confirmButtonColor: "#d33",
-      confirmButtonText: t("register.try_again"),
+      confirmButtonText: "Réessayer",
     });
   };
 
-  // 📤 Form submission logic
+  // 📤 Form submission
   const onSubmit = async (data) => {
     try {
       await registerUser(data.email, data.password);
-      showSuccessAlert(t("register.success_title"), t("register.success_text"));
+      showSuccessAlert(
+        "Inscription réussie !",
+        "Bienvenue chez Lina Optic. Votre compte a été créé."
+      );
       navigate("/");
     } catch (error) {
-      showErrorAlert(t("register.error_title"), t("register.error_text"));
+      showErrorAlert(
+        "Échec de l'inscription",
+        "Une erreur est survenue. Veuillez vérifier vos informations et réessayer."
+      );
       console.error(error);
     }
   };
 
-  // 🔐 Google Sign-in logic
+  // 🔐 Google sign-in
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      showSuccessAlert(t("register.google_success_title"), t("register.success_text"));
+      showSuccessAlert(
+        "Connexion via Google réussie !",
+        "Bienvenue chez Lina Optic. Vous êtes maintenant connecté."
+      );
       navigate("/");
     } catch (error) {
-      showErrorAlert(t("register.google_error_title"), t("register.try_again"));
+      showErrorAlert(
+        "Échec de la connexion Google",
+        "Nous n'avons pas pu vous connecter via Google. Veuillez réessayer."
+      );
       console.error(error);
     }
   };
 
-  // ================================================
-  // ⬇️ RETURN SECTION: Markup with form and UI logic
-  // ================================================
   return (
     <div className="register-page">
       <div className="register-container">
-        {/* 🔹 Title */}
-        <h2 className="register-title">{t("register.create_account")}</h2>
+        <h2 className="register-title">Créer un compte</h2>
 
-        {/* 🔹 Optional message */}
         {message && <p className="register-message">{message}</p>}
 
-        {/* 🔹 Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="register-form">
-          {/* Email Field */}
           <div className="form-group">
-            <label htmlFor="email">{t("register.email_label")}</label>
+            <label htmlFor="email">Adresse e-mail</label>
             <input
               {...register("email", { required: true })}
               type="email"
               id="email"
-              placeholder={t("register.email_placeholder")}
+              placeholder="Entrez votre e-mail"
               className="input"
             />
-            {errors.email && <p className="input-error">{t("register.email_required")}</p>}
+            {errors.email && (
+              <p className="input-error">L’adresse e-mail est requise.</p>
+            )}
           </div>
 
-          {/* Password Field */}
           <div className="form-group">
-            <label htmlFor="password">{t("register.password_label")}</label>
+            <label htmlFor="password">Mot de passe</label>
             <input
               {...register("password", { required: true })}
               type="password"
               id="password"
-              placeholder={t("register.password_placeholder")}
+              placeholder="Entrez votre mot de passe"
               className="input"
             />
-            {errors.password && <p className="input-error">{t("register.password_required")}</p>}
+            {errors.password && (
+              <p className="input-error">Le mot de passe est requis.</p>
+            )}
           </div>
 
-          {/* Submit Button */}
           <button type="submit" className="btn-primary">
-            {t("register.register_btn")}
+            S’inscrire
           </button>
         </form>
 
-        {/* 🔹 Forgot Password */}
         <p className="register-footer-link">
           <Link to="/forgot-password" className="text-link">
             Mot de passe oublié ?
           </Link>
         </p>
 
-        {/* 🔹 Already have an account */}
         <p className="register-footer-link">
-          {t("register.have_account")}{" "}
-          <Link to="/login" className="text-link">{t("register.login_link")}</Link>
+          Vous avez déjà un compte ?{" "}
+          <Link to="/login" className="text-link">Se connecter ici</Link>
         </p>
 
-        {/* 🔹 Google Auth */}
         <div className="google-login">
           <button onClick={handleGoogleSignIn} className="btn-google">
             <FaGoogle className="google-icon" />
-            {t("register.google_btn")}
+            S’inscrire avec Google
           </button>
         </div>
 
-        {/* 🔹 Footer Rights */}
         <p className="register-rights">
-          ©2025 Lina Optic. {t("register.rights")}
+          ©2025 Lina Optic. Tous droits réservés.
         </p>
       </div>
     </div>
