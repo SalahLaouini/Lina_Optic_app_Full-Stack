@@ -51,41 +51,43 @@ const SingleProduct = () => {
   };
 
   // ✅ Add product to cart with validation
-  const handleAddToCart = () => {
-    const colorName = selectedColor?.colorName?.en;
-    const colorStock = selectedColor?.stock ?? 0;
+const handleAddToCart = () => {
+  const colorName = selectedColor?.colorName?.en;
+  const colorStock = selectedColor?.stock ?? 0;
 
-    const itemInCart = cartItems.find(
-      (item) =>
-        item._id === product._id &&
-        item.color?.colorName?.en === colorName
-    );
+  const itemInCart = cartItems.find(
+    (item) =>
+      item._id === product._id &&
+      item.color?.colorName?.en === colorName
+  );
 
-    const quantityInCart = itemInCart?.quantity || 0;
+  const quantityInCart = itemInCart?.quantity || 0;
 
-    if (quantityInCart + quantity > colorStock) {
-      Swal.fire({
-        icon: "warning",
-        title: "Stock épuisé",
-        text: "Impossible d’ajouter plus. Quantité maximale atteinte.",
-        confirmButtonColor: "#1c3b58",
-      });
-      return;
-    }
+  if (quantityInCart + quantity > colorStock) {
+    Swal.fire({
+      icon: "warning",
+      title: "Stock épuisé",
+      text: "Impossible d’ajouter plus. Quantité maximale atteinte.",
+      confirmButtonColor: "#1c3b58",
+    });
+    return;
+  }
 
-    dispatch(
-  addToCart({
-    _id: product._id,
-    title: product.title,
-    mainCategory: product.mainCategory,
-    subCategory: product.subCategory,
-    brand: product.brand,
-    coverImage: product.coverImage,
-    newPrice: product.newPrice,
-    color: selectedColor,
-    quantity,
-  })
-);
+  dispatch(
+    addToCart({
+      _id: product._id,
+      title: product.title,
+      mainCategory: product.mainCategory,
+      subCategory: product.subCategory,
+      brand: product.brand,
+      coverImage: product.coverImage,
+      newPrice: product.newPrice,
+      color: selectedColor,
+      quantity,
+    })
+  );
+}; // ✅ ← ADD THIS LINE to properly close the function
+
 
 
   // ✅ Zoom on image hover
