@@ -96,13 +96,16 @@ const LinaCarousel = () => {
   <div className="carousel-slide" key={index}>
     <div className="carousel-image-block">
       <img
-        src={slide.image}
-        alt={`Lunettes ${slide.subtitle}`}
-        className="carousel-img"
-        loading="lazy"
-        decoding="async"
-        fetchpriority={index === 0 ? "high" : "auto"}
-      />
+  src={slide.image}
+  alt={`Lunettes ${slide.subtitle}`}
+  className="carousel-img"
+  width="1200"
+  height="600"
+  loading="lazy"
+  decoding="async"
+  fetchpriority={index === 0 ? "high" : "auto"}
+/>
+
     </div>
     <div className="carousel-overlay">
       <p className="carousel-subtitle">{slide.subtitle}</p>
