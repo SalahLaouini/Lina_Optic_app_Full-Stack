@@ -74,17 +74,19 @@ const SingleProduct = () => {
     }
 
     dispatch(
-      addToCart({
-        _id: product._id,
-        title: product.title,
-        category: product.mainCategory,
-        coverImage: product.coverImage,
-        newPrice: product.newPrice,
-        color: selectedColor,
-        quantity,
-      })
-    );
-  };
+  addToCart({
+    _id: product._id,
+    title: product.title,
+    mainCategory: product.mainCategory,
+    subCategory: product.subCategory,
+    brand: product.brand,
+    coverImage: product.coverImage,
+    newPrice: product.newPrice,
+    color: selectedColor,
+    quantity,
+  })
+);
+
 
   // ✅ Zoom on image hover
   useEffect(() => {
