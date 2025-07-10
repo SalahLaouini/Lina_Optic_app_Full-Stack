@@ -31,18 +31,24 @@ const HeroCategoryCards = () => {
           <div
             ref={femmeZoomRef}
             className="zoom-layer"
-            style={{ backgroundImage: `url(${femmeImage})` }}
+            style={{
+  backgroundImage: `url(${femmeImage})`,
+  backgroundPosition: "center center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat"
+}}
+
           >
             {/* 🖼️ Optimization: real <img> for preloading and SEO */}
             <img
-              src={femmeImage}
-              alt="Lunettes pour Elle"
-              className="hidden-img"
-              loading="lazy"
-              decoding="async"
-              fetchpriority="high"
-            />
-          </div>
+    src={femmeImage}
+    alt="Lunettes pour Elle"
+    className="hidden-img"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="high"
+  />
+</div>
           <div className="card-overlay">
             <p className="card-subtitle">Lunettes pour Elle</p>
             <h3 className="card-title">Beauté Visuelle</h3>
@@ -61,7 +67,13 @@ const HeroCategoryCards = () => {
           <div
             ref={hommeZoomRef}
             className="zoom-layer"
-            style={{ backgroundImage: `url(${hommeImage})` }}
+            style={{
+  backgroundImage: `url(${hommeImage})`,
+  backgroundPosition: "center center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat"
+}}
+
           >
             <img
               src={hommeImage}
@@ -84,3 +96,6 @@ const HeroCategoryCards = () => {
 };
 
 export default HeroCategoryCards;
+
+
+
