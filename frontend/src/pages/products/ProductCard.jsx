@@ -65,20 +65,24 @@ const ProductCard = ({ product }) => {
       return;
     }
 
-    dispatch(
-      addToCart({
-        _id: product._id,
-        title: product.title,
-        newPrice: product.newPrice,
-        mainCategory: product.mainCategory,
-        subCategory: product.subCategory,
-        brand: product.brand,
-        coverImage: product.coverImage,
-        quantity: 1,
-        color: selectedColor,
-      })
-    );
-  };
+   dispatch(
+     addToCart({
+       _id: product._id,
+       title: product.title,
+       mainCategory: product.mainCategory,
+       subCategory: product.subCategory,
+       brand: product.brand,
+       coverImage: product.coverImage,
+       newPrice: product.newPrice,
+       color: {
+         ...selectedColor,
+         image: selectedColor?.images?.[0] || product.coverImage,
+       },
+       quantity,
+     })
+   );
+   
+   }; 
 
   // 💖 Wishlist toggle
   const handleToggleWishlist = () => {

@@ -73,20 +73,24 @@ const handleAddToCart = () => {
     return;
   }
 
-  dispatch(
-    addToCart({
-      _id: product._id,
-      title: product.title,
-      mainCategory: product.mainCategory,
-      subCategory: product.subCategory,
-      brand: product.brand,
-      coverImage: product.coverImage,
-      newPrice: product.newPrice,
-      color: selectedColor,
-      quantity,
-    })
-  );
-}; // ✅ ← ADD THIS LINE to properly close the function
+ dispatch(
+  addToCart({
+    _id: product._id,
+    title: product.title,
+    mainCategory: product.mainCategory,
+    subCategory: product.subCategory,
+    brand: product.brand,
+    coverImage: product.coverImage,
+    newPrice: product.newPrice,
+    color: {
+      ...selectedColor,
+      image: selectedColor?.images?.[0] || product.coverImage,
+    },
+    quantity,
+  })
+);
+
+}; 
 
 
 

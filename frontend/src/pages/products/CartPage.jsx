@@ -91,10 +91,11 @@ const CartPage = () => {
                 {/* 📸 Product Image */}
                 <div className="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border border-[#a3bddb] shadow">
                   <img
-                    src={getImgUrl(product.color?.image || product.coverImage)}
-                    alt={product.title || "Produit"}
-                    className="w-full h-full object-cover"
-                  />
+  src={getImgUrl(product.color?.image || product.coverImage)}
+  alt={product.title || "Produit"}
+  className="w-full h-full object-cover"
+/>
+
                 </div>
 
                 {/* 📄 Product Details */}
