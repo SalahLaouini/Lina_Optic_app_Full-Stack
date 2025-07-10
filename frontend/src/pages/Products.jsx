@@ -48,7 +48,7 @@ const Products = () => {
   const categoryFromUrl = queryParams.get("category");
   const subCategoryFromUrl = queryParams.get("subCategory");
 
-  const [priceRange, setPriceRange] = useState([0, 600]); // 💰 Default price range
+  const [priceRange, setPriceRange] = useState([0, 1800]); // 💰 Default price range
 
   // 🌐 Auto-select category/subCategory from URL
   useEffect(() => {
@@ -170,7 +170,7 @@ const Products = () => {
               <div className="selector-sidebar-lina">
                 <PriceSlider
                   min={0}
-                  max={600}
+                  max={1800}
                   priceRange={priceRange}
                   onChange={setPriceRange}
                 />
