@@ -48,41 +48,51 @@ const ProductCard = ({ product }) => {
 
   // 🛒 Add to cart handler
   const handleAddToCart = () => {
-    const quantityInCart =
-      cartItems.find(
-        (item) =>
-          item._id === product._id &&
-          item.color?.colorName?.en === selectedColor?.colorName?.en
-      )?.quantity || 0;
+  const quantityInCart =
+    cartItems.find(
+      (item) =>
+        item._id === product._id &&
+        item.color?.colorName?.en === selectedColor?.colorName?.en
+    )?.quantity || 0;
 
-    if (quantityInCart >= selectedColor.stock) {
-      Swal.fire({
-        icon: "warning",
-        title: "Stock limité",
-        text: "Vous avez atteint la quantité maximale en stock pour cette couleur.",
-        confirmButtonColor: "#1c3b58",
-      });
-      return;
-    }
+  if (quantityInCart >= selectedColor.stock) {
+    Swal.fire({
+      icon: "warning",
+      title: "Stock limité",
+      text: "Vous avez atteint la quantité maximale en stock pour cette couleur.",
+      confirmButtonColor: "#1c3b58",
+    });
+    return;
+  }
 
-   dispatch(
-     addToCart({
-       _id: product._id,
-       title: product.title,
-       mainCategory: product.mainCategory,
-       subCategory: product.subCategory,
-       brand: product.brand,
-       coverImage: product.coverImage,
-       newPrice: product.newPrice,
-       color: {
-         ...selectedColor,
-         image: selectedColor?.images?.[0] || product.coverImage,
-       },
-       quantity,
-     })
-   );
-   
-   }; 
+  const quantity = 1; // ✅ Define default quantity to add
+
+  dispatch(
+    addToCart({
+      _id: product._id,
+      title: product.title,
+      mainCategory: product.mainCategory,
+      subCategory: product.subCategory,
+      brand: product.brand,
+      coverImage: product.coverImage,
+      newPrice: product.newPrice,
+      color: {
+        ...selectedColor,
+        image: selectedColor?.images?.[0] || product.coverImage,
+      },
+      quantity, // ✅ now defined
+    })
+  );
+
+  Swal.fire({
+    icon: "success",
+    title: "Ajouté au panier",
+    text: `${product.title} a été ajouté avec succès.`,
+    timer: 1500,
+    showConfirmButton: false,
+  });
+};
+
 
   // 💖 Wishlist toggle
   const handleToggleWishlist = () => {
