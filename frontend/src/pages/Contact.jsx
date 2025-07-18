@@ -34,7 +34,8 @@ const Contact = () => {
           <ul className="contact-info-list">
             <li>
               <span className="contact-icon">📌</span>
-              61 rue Habib Bourguiba, Manouba 2010
+              61 rue Habib Bourguiba, Manouba 2010 
+              292 Avenue Khaled Ebn El Walid, Douar Hicher 61
             </li>
             <li>
               <span className="contact-icon">📧</span>
