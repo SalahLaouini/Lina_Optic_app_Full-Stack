@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../Styles/StylesLentillesSection.css";
 
 // 📷 Utilise une image compressée WebP si possible
-import lentillesSectionImg1 from "../../src/assets/Lentilles Section/Img1-lentilles-section.webp";
+import lentillesSectionImg1 from "../../src/assets/Lentilles Section/Img1 Lentilles Section.webp";
 
 const LentillesSection = () => {
   const [imgLoaded, setImgLoaded] = useState(false); // ⏳ Pour afficher un loader si souhaité
