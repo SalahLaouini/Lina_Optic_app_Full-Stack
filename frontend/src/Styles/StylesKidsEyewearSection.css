@@ -150,3 +150,22 @@
     transform: translateY(-2px);
   }
   
+  .kids-image.hidden {
+  display: none;
+}
+
+.kids-image.visible {
+  display: block;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.kids-image-loader {
+  width: 100%;
+  height: 400px;
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 14px;
+}
