@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "../Styles/StylesHeroCategoryCards.css";
-import femmeImage from "../assets/Glasses/Img HeroCategory Card Women Glasses n2.png";
-import hommeImage from "../assets/Glasses/Img HeroCategory Card Men Glasses n3.png";
+import femmeImage from "../assets/Glasses/Img HeroCategory Card Women Glasses n2.webp";
+import hommeImage from "../assets/Glasses/Img HeroCategory Card Men Glasses n3.webp";
 
 const HeroCategoryCards = () => {
   const handleMouseMove = (e, zoomRef) => {
