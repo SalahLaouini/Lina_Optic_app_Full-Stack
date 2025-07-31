@@ -34,7 +34,7 @@ const Footer = () => {
     allowFullScreen
     referrerPolicy="no-referrer-when-downgrade"
   ></iframe>
-</div>
+
 
 
 </div>
