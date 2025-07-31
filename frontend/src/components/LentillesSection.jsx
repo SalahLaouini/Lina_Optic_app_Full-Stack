@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react"; 
 import "../Styles/StylesLentillesSection.css";
-
-// 📷 Utilise une image compressée WebP si possible
 import lentillesSectionImg1 from "../../src/assets/Lentilles Section/Img1 Lentilles Section.webp";
 
 const LentillesSection = () => {
-  const [imgLoaded, setImgLoaded] = useState(false); // ⏳ Pour afficher un loader si souhaité
-
   return (
     <section className="lentilles-section">
       {/* 📝 Left side content block */}
@@ -31,21 +27,14 @@ const LentillesSection = () => {
 
       {/* 🖼️ Right side image block */}
       <div className="lentilles-image-container">
-        {!imgLoaded && (
-          <div className="lentilles-img-loader">Chargement de l’image...</div>
-        )}
-
         <a href="/products?subCategory=Lentilles">
           <img
             src={lentillesSectionImg1}
             alt="Lentilles de Contact Lina Optic"
-            className={`lentilles-image ${imgLoaded ? "visible" : "hidden"}`}
-            width="600"
-            height="400"
-            loading="lazy"
-            decoding="async"
-            fetchpriority="auto"
-            onLoad={() => setImgLoaded(true)}
+            className="lentilles-image"
+            loading="lazy"           // ✅ Defer loading until image is visible
+            decoding="async"         // ✅ Decode off the main thread
+            fetchpriority="auto"     // ✅ Normal priority
           />
         </a>
       </div>
