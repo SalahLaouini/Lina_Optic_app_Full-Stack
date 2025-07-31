@@ -78,7 +78,12 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   height: 100%;
   animation: fadeIn 0.8s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ⬅️ centers content horizontally */
+  text-align: center;  /* ⬅️ centers text */
 }
+
 
 .contact-info-title {
   font-size: 1.6rem;
@@ -171,5 +176,12 @@
 @keyframes underlineSlideIn {
   to {
     width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-info-list li {
+    justify-content: center; /* center text + icon inside each row */
+    text-align: center;
   }
 }
