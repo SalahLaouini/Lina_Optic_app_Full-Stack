@@ -24,17 +24,18 @@ const Footer = () => {
 
            {/* 🗺️ Embedded OpenStreetMap iframe with current timestamp to avoid caching */}
           <div className="footer-map-small">
- <iframe
-  key={Date.now()}
-  width="100%"
-  height="300"
-  frameBorder="0"
-  scrolling="no"
-  marginHeight="0"
-  marginWidth="0"
-  src={`https://www.openstreetmap.org/export/embed.html?bbox=10.0905%2C36.8100%2C10.0925%2C36.8115&layer=mapnik&marker=36.8109%2C10.0915&t=${Date.now()}`}
-  title="Lina Optic – Manouba"
-/>
+  <iframe
+    title="Lina Optic – Manouba"
+    src="https://www.openstreetmap.org/export/embed.html?bbox=10.0905%2C36.8100%2C10.0925%2C36.8115&layer=mapnik&marker=36.8109%2C10.0915"
+    width="100%"
+    height="300"
+    loading="lazy"
+    frameBorder="0"
+    allowFullScreen
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
 
 </div>
 
