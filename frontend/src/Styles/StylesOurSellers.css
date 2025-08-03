@@ -157,11 +157,9 @@
    📱 Mobile Responsiveness
 ================================= */
 @media (max-width: 768px) {
-
   .our-sellers {
-  margin-bottom: -25%;
-  
-}
+    margin-bottom: -25%;
+  }
 
   .custom-arrow {
     display: none;
@@ -179,10 +177,27 @@
   .filters-wrapper {
     flex-direction: column;
     align-items: center;
+    gap: 1.2rem;
+    padding: 0 1rem;
   }
 
   .filters-wrapper select {
-    width: 90%;
-    font-size: 1rem;
+    width: 92%;
+    font-size: 1.05rem;
+    padding: 0.75rem 1.2rem;
+    border-radius: 10px;
+    border: 1.8px solid #1c3b58;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon fill='%231c3b58' points='70,100 20,40 120,40'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 0.6rem;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .filters-wrapper select:focus {
+    border-color: #0f2a40;
+    background-color: #fefefe;
+    box-shadow: 0 0 0 3px rgba(28, 59, 88, 0.12);
   }
 }
