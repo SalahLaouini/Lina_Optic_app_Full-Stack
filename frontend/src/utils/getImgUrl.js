@@ -1,31 +1,46 @@
-// 📦 Import the function to determine the backend base URL (used for uploaded images)
+// utils/getImgUrl.js
 import getBaseUrl from "./baseURL";
 
-// 🖼️ Utility function to resolve the correct image URL for display
-function getImgUrl(name) {
-  // 🚫 If no image name is provided, return a default placeholder image
-  if (!name) {
-    return "/default-image.jpg"; // 🖼️ Default fallback image
-  }
+/**
+ * Resolve the best image URL for display.
+ * - Keeps your existing logic (File previews, backend /uploads, static paths)
+ * - If the URL is Cloudinary, injects quality/format/DPR/width transforms.
+ */
+function getImgUrl(name, opts = {}) {
+  const {
+    w = 800,           // target width to serve (the browser can downscale)
+    q = "auto",        // smart quality
+    f = "auto",        // auto format (AVIF/WebP/JPEG fallback)
+    dpr = "auto",      // crisp on Retina/high-DPI
+    crop = "limit"     // don't upscale beyond original
+  } = opts;
 
-  // 📱 If the input is a File object (e.g., selected from a mobile device), generate a temporary URL for preview
-  if (typeof name === "object" && name instanceof File) {
+  // 1) Fallback
+  if (!name) return "/default-image.jpg";
+
+  // 2) Preview local File/Blob (e.g., on mobile)
+  if (typeof name === "object" && (name instanceof File || name instanceof Blob)) {
     return URL.createObjectURL(name);
   }
 
-  // 🌍 If the image is already hosted externally (e.g., Cloudinary or S3), return the URL as is
+  // 3) Absolute/external URLs
   if (typeof name === "string" && (name.startsWith("http://") || name.startsWith("https://"))) {
+    // If Cloudinary, inject transforms after "/upload/"
+    if (name.includes("res.cloudinary.com") && name.includes("/upload/")) {
+      const t = `f_${f},q_${q},dpr_${dpr},c_${crop},w_${w}`;
+      return name.replace("/upload/", `/upload/${t}/`);
+    }
+    // Non-Cloudinary externals: return as-is
     return name;
   }
 
-  // 🗂️ If the image is uploaded to the backend (e.g., stored in `/uploads/`), prepend the backend base URL
+  // 4) Backend uploads (prepend API base URL)
   if (typeof name === "string" && (name.startsWith("/uploads/") || name.startsWith("uploads/"))) {
     return `${getBaseUrl()}${name.startsWith("/") ? name : `/${name}`}`;
   }
 
-  // 🗃️ For static local images (e.g., in public folder), return relative path
-  return `/${name}`;
+  // 5) Static file in /public
+  return name.startsWith("/") ? name : `/${name}`;
 }
 
-// 🚀 Export the helper function for use across the project
 export { getImgUrl };
