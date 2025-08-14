@@ -79,7 +79,7 @@ const UpdateProduct = () => {
           : `${getBaseUrl()}${coverImageUrl}`
       );
 
-      // 🎨 Format colors array if present
+      // 🎨 Format colors (keep existing images; arrays for new uploads & previews)
       if (Array.isArray(productData.colors)) {
         const formattedColors = productData.colors.map((color) => ({
           colorName:
@@ -87,9 +87,9 @@ const UpdateProduct = () => {
               ? color.colorName.en
               : color.colorName || "",
           stock: color.stock || 0,
-          images: color.images || [],
-          imageFile: [],
-          previewURL: [],
+          images: Array.isArray(color.images) ? color.images : [], // existing server URLs
+          imageFile: [],   // new files to upload
+          previewURL: [],  // previews for new files
         }));
         setColors(formattedColors);
       }
@@ -105,30 +105,90 @@ const UpdateProduct = () => {
     }
   };
 
-  // 🎨 Handle changes in color fields (name, stock, images)
+  // 🎨 Generic change handler for color fields
   const handleColorChange = (index, field, value) => {
-    const updatedColors = [...colors];
-    updatedColors[index][field] = value;
-    setColors(updatedColors);
+    setColors((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], [field]: value };
+      return next;
+    });
   };
 
   // ➕ Add a new empty color block
   const addColor = () => {
-    setColors([
-      ...colors,
+    setColors((prev) => [
+      ...prev,
       {
         colorName: "",
         stock: 0,
-        images: [],
-        imageFile: [],
-        previewURL: [],
+        images: [],     // existing server URLs
+        imageFile: [],  // new files (File[])
+        previewURL: [], // previews for new files
       },
     ]);
   };
 
   // ❌ Remove a specific color block
   const deleteColor = (index) => {
-    setColors(colors.filter((_, i) => i !== index));
+    setColors((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // ➕ Add a new image slot (for NEW uploads) to a color
+  const addImageSlot = (colorIndex) => {
+    setColors((prev) => {
+      const next = [...prev];
+      const c = { ...next[colorIndex] };
+      c.imageFile = [...(c.imageFile || []), null];
+      c.previewURL = [...(c.previewURL || []), ""];
+      next[colorIndex] = c;
+      return next;
+    });
+  };
+
+  // 🔁 Update a specific NEW image slot with a selected file
+  const updateImageAt = (colorIndex, imageIndex, file) => {
+    if (!file || !file.type?.startsWith("image/")) return;
+    setColors((prev) => {
+      const next = [...prev];
+      const c = { ...next[colorIndex] };
+      const files = [...(c.imageFile || [])];
+      const previews = [...(c.previewURL || [])];
+      files[imageIndex] = file;
+      previews[imageIndex] = URL.createObjectURL(file);
+      c.imageFile = files;
+      c.previewURL = previews;
+      next[colorIndex] = c;
+      return next;
+    });
+  };
+
+  // 🗑️ Remove a NEW image slot (not uploaded yet)
+  const removeNewImageAt = (colorIndex, imageIndex) => {
+    setColors((prev) => {
+      const next = [...prev];
+      const c = { ...next[colorIndex] };
+      const files = [...(c.imageFile || [])];
+      const previews = [...(c.previewURL || [])];
+      files.splice(imageIndex, 1);
+      previews.splice(imageIndex, 1);
+      c.imageFile = files;
+      c.previewURL = previews;
+      next[colorIndex] = c;
+      return next;
+    });
+  };
+
+  // 🗑️ Remove an EXISTING server image URL
+  const removeExistingImageAt = (colorIndex, imageIndex) => {
+    setColors((prev) => {
+      const next = [...prev];
+      const c = { ...next[colorIndex] };
+      const existing = [...(c.images || [])];
+      existing.splice(imageIndex, 1);
+      c.images = existing;
+      next[colorIndex] = c;
+      return next;
+    });
   };
 
   // ☁️ Upload a single image to the server
@@ -137,7 +197,7 @@ const UpdateProduct = () => {
     const formData = new FormData();
     formData.append("image", file);
     const res = await axios.post(`${getBaseUrl()}/api/upload`, formData);
-    return res.data.image;
+    return res.data.image; // server returns path/URL
   };
 
   // 📨 Handle form submission to update product
@@ -154,30 +214,31 @@ const UpdateProduct = () => {
       coverImage = await uploadImage(imageFile);
     }
 
-    // 🔁 Upload all new images per color and build updated colors array
+    // 🔁 Upload NEW images per color and MERGE with existing (minus any removed)
     const updatedColors = await Promise.all(
       colors.map(async (color) => {
-        const uploadedImages = [];
-
+        const newlyUploaded = [];
         if (Array.isArray(color.imageFile)) {
           for (const file of color.imageFile) {
             if (file) {
               const uploaded = await uploadImage(file);
-              uploadedImages.push(uploaded);
+              if (uploaded) newlyUploaded.push(uploaded);
             }
           }
         }
 
+        const mergedImages = [...(color.images || []), ...newlyUploaded];
+
         return {
+          // Controller will translate string colorName to {en,fr,ar}
           colorName: color.colorName,
           stock: Number(color.stock) || 0,
-          images: uploadedImages.length > 0 ? uploadedImages : color.images,
+          images: mergedImages,
         };
       })
     );
 
-
-       // 📦 Final assembled product data to send to the backend
+    // 📦 Final assembled product data to send to the backend
     const updatedProductData = {
       ...data,
       mainCategory,
@@ -189,6 +250,7 @@ const UpdateProduct = () => {
       oldPrice: Number(data.oldPrice),
       newPrice: Number(data.newPrice),
       stockQuantity: updatedColors[0]?.stock || 0, // Set stock based on first color
+      trending: !!data.trending,
     };
 
     try {
@@ -198,14 +260,10 @@ const UpdateProduct = () => {
 
       // 🧼 Clear temporary files and previews after update
       setColors((prevColors) =>
-        prevColors.map((color) => ({
-          ...color,
-          imageFile: [],
-          previewURL: [],
-        }))
+        prevColors.map((c) => ({ ...c, imageFile: [], previewURL: [] }))
       );
 
-      // 🔁 Optionally refetch the product data
+      // 🔁 Refresh data
       refetch();
     } catch (error) {
       console.error("❌ Update failed:", error?.data || error);
@@ -265,6 +323,7 @@ const UpdateProduct = () => {
           </>
         )}
 
+        {/* ===== Frame Type ===== */}
         <label>Frame Type</label>
         <select {...register("frameType")}>
           <option value="">Select a frame type</option>
@@ -275,7 +334,7 @@ const UpdateProduct = () => {
           ))}
         </select>
 
-        {/* ===== Pricing ===== */}
+        {/* ===== Pricing & Brand ===== */}
         <label>Brand</label>
         <input
           {...register("brand")}
@@ -323,12 +382,11 @@ const UpdateProduct = () => {
         <label>Product Colors</label>
         {colors.map((color, index) => (
           <div key={index} className="color-block">
+            {/* Color name & stock */}
             <input
               type="text"
               value={color.colorName}
-              onChange={(e) =>
-                handleColorChange(index, "colorName", e.target.value)
-              }
+              onChange={(e) => handleColorChange(index, "colorName", e.target.value)}
               placeholder="Color name"
               required
             />
@@ -343,68 +401,77 @@ const UpdateProduct = () => {
               required
             />
 
-            {/* Show saved server-side images */}
-            {Array.isArray(color.images) &&
-              color.images.map((imgUrl, i) => (
-                <img
-                  key={`saved-${i}`}
-                  src={getImgUrl(imgUrl)}
-                  alt={`Image ${i + 1}`}
-                  className="color-preview"
-                />
-              ))}
-
-            {/* Show preview for newly uploaded images */}
-            {color.previewURL?.map?.((url, i) =>
-              url ? (
-                <div key={`preview-${i}`} className="image-preview-group">
-                  <img src={url} alt={`Preview ${i + 1}`} className="color-preview" />
-                </div>
-              ) : null
+            {/* Existing server images (removable) */}
+            {Array.isArray(color.images) && color.images.length > 0 && (
+              <div className="image-preview-row">
+                {color.images.map((imgUrl, i) => (
+                  <div key={`existing-${i}`} className="image-preview-group">
+                    <img
+                      src={getImgUrl(imgUrl)}
+                      alt={`Image ${i + 1}`}
+                      className="color-preview"
+                    />
+                    <button
+                      type="button"
+                      className="btn-remove-img"
+                      onClick={() => removeExistingImageAt(index, i)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
 
-            {/* Upload inputs for each image slot */}
-            {color.imageFile?.map?.((file, i) => (
-              <div key={`file-${i}`} className="image-preview-group">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const selectedFile = e.target.files?.[0];
-                    if (selectedFile) {
-                      const newFiles = [...(color.imageFile || [])];
-                      const newPreviews = [...(color.previewURL || [])];
-                      newFiles[i] = selectedFile;
-                      newPreviews[i] = URL.createObjectURL(selectedFile);
-                      handleColorChange(index, "imageFile", newFiles);
-                      handleColorChange(index, "previewURL", newPreviews);
-                    }
-                  }}
-                />
+            {/* Previews for NEW images */}
+            {color.previewURL?.length > 0 && (
+              <div className="image-preview-row">
+                {color.previewURL.map((url, i) =>
+                  url ? (
+                    <div key={`preview-${i}`} className="image-preview-group">
+                      <img src={url} alt={`Preview ${i + 1}`} className="color-preview" />
+                      <button
+                        type="button"
+                        className="btn-remove-img"
+                        onClick={() => removeNewImageAt(index, i)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : null
+                )}
               </div>
-            ))}
+            )}
 
-            {/* ➕ Add image input */}
+            {/* File inputs for each NEW image slot */}
+            <div className="image-inputs-row">
+              {(color.imageFile || []).map((_, i) => (
+                <div key={`file-${i}`} className="image-input-item">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => updateImageAt(index, i, e.target.files?.[0])}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Add new image slot */}
             <button
               type="button"
-              onClick={() => {
-                const updatedFiles = [...(color.imageFile || []), null];
-                const updatedPreviews = [...(color.previewURL || []), ""];
-                handleColorChange(index, "imageFile", updatedFiles);
-                handleColorChange(index, "previewURL", updatedPreviews);
-              }}
+              onClick={() => addImageSlot(index)}
               className="btn-add-more-img"
             >
               + Add an image
             </button>
 
-            {/* 🗑️ Delete color */}
+            {/* Delete this color */}
             <button
               type="button"
               onClick={() => deleteColor(index)}
               className="btn-delete-color"
             >
-              Delete
+              Delete color
             </button>
           </div>
         ))}

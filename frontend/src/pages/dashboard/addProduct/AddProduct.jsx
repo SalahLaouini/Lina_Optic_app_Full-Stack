@@ -18,7 +18,7 @@ const AddProduct = () => {
   const [coverImageFile, setCoverImageFile] = useState(null);
   const [coverPreviewURL, setCoverPreviewURL] = useState("");
 
-  // 🎨 State to manage color blocks (each with name, images, stock)
+  // 🎨 State to manage color blocks (each with name, images[], previews[], stock)
   const [colorInputs, setColorInputs] = useState([]);
 
   // 🚀 RTK Query mutation hook to add product
@@ -50,54 +50,93 @@ const AddProduct = () => {
     "Cadre ovale",
   ];
 
-  // 📷 Handle cover image file selection and preview generation
+  // 📷 Cover image selection
   const handleCoverImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
       setCoverImageFile(file);
-      const url = URL.createObjectURL(file);
-      setCoverPreviewURL(url);
+      setCoverPreviewURL(URL.createObjectURL(file));
     } else {
       setCoverImageFile(null);
       setCoverPreviewURL("");
     }
   };
 
-  // 🎨 Handle changes for color input fields (name, image files, stock)
+  // 🎨 Generic field update for a color block
   const handleColorInputChange = (index, field, value) => {
-    const newInputs = [...colorInputs];
-    if (field === "imageFile" && value instanceof File && value.type.startsWith("image/")) {
-      newInputs[index][field] = value;
-      newInputs[index].previewURL = URL.createObjectURL(value);
-    } else {
-      newInputs[index][field] = value;
-    }
-    setColorInputs(newInputs);
+    setColorInputs((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], [field]: value };
+      return next;
+    });
   };
 
-  // ➕ Add a new empty color block
+  // ➕ Add a new empty color block (ARRAYS by default)
   const addColorInput = () => {
-    setColorInputs([
-      ...colorInputs,
-      { colorName: "", imageFile: null, previewURL: "", stock: 0 },
+    setColorInputs((prev) => [
+      ...prev,
+      { colorName: "", stock: 0, imageFiles: [], previewURLs: [] },
     ]);
   };
 
   // ❌ Remove a specific color block
   const deleteColorInput = (index) => {
-    setColorInputs(colorInputs.filter((_, i) => i !== index));
+    setColorInputs((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ☁️ Upload a single image to the backend (used for both cover & color images)
+  // ➕ Add a new image slot to a color
+  const addImageSlot = (colorIndex) => {
+    setColorInputs((prev) => {
+      const next = [...prev];
+      const color = { ...next[colorIndex] };
+      color.imageFiles = [...(color.imageFiles || []), null];
+      color.previewURLs = [...(color.previewURLs || []), ""];
+      next[colorIndex] = color;
+      return next;
+    });
+  };
+
+  // 🔁 Update a specific image slot
+  const updateImageAt = (colorIndex, imageIndex, file) => {
+    if (!file || !file.type?.startsWith("image/")) return;
+    setColorInputs((prev) => {
+      const next = [...prev];
+      const color = { ...next[colorIndex] };
+      const files = [...(color.imageFiles || [])];
+      const previews = [...(color.previewURLs || [])];
+      files[imageIndex] = file;
+      previews[imageIndex] = URL.createObjectURL(file);
+      color.imageFiles = files;
+      color.previewURLs = previews;
+      next[colorIndex] = color;
+      return next;
+    });
+  };
+
+  // 🗑️ Remove a specific image slot
+  const removeImageAt = (colorIndex, imageIndex) => {
+    setColorInputs((prev) => {
+      const next = [...prev];
+      const color = { ...next[colorIndex] };
+      const files = [...(color.imageFiles || [])];
+      const previews = [...(color.previewURLs || [])];
+      files.splice(imageIndex, 1);
+      previews.splice(imageIndex, 1);
+      color.imageFiles = files;
+      color.previewURLs = previews;
+      next[colorIndex] = color;
+      return next;
+    });
+  };
+
+  // ☁️ Upload a single image (cover & color images)
   const uploadImage = async (file) => {
     if (!file || !(file instanceof File) || !file.type.startsWith("image/")) return "";
     const formData = new FormData();
     formData.append("image", file);
     try {
       const res = await axios.post(`${getBaseUrl()}/api/upload`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return res.data.image;
     } catch (error) {
@@ -106,8 +145,7 @@ const AddProduct = () => {
     }
   };
 
-
-  // 📤 Handle form submission
+  // 📤 Submit
   const onSubmit = async (data) => {
     // ✅ Validate category selection before submitting
     if (!mainCategory || !subCategory) {
@@ -115,50 +153,40 @@ const AddProduct = () => {
       return;
     }
 
-    // 🖼️ Upload the cover image if it’s a valid image file
+    // 🖼️ Upload cover image (optional)
     let coverImage = "";
     if (coverImageFile instanceof File && coverImageFile.type.startsWith("image/")) {
       coverImage = await uploadImage(coverImageFile);
     }
 
-    // 🎨 Process color blocks: upload each color's images and structure color data
+    // 🎨 Upload each color's images
     const colors = await Promise.all(
       colorInputs.map(async (input) => {
-        if (
-          input.colorName &&
-          Array.isArray(input.imageFiles) &&
-          input.stock >= 0
-        ) {
-          const uploadedImages = [];
+        const { colorName, imageFiles, stock } = input || {};
+        if (!colorName || stock == null) return null;
 
-          // ☁️ Upload each image file for this color
-          for (const file of input.imageFiles) {
+        const uploadedImages = [];
+        if (Array.isArray(imageFiles)) {
+          for (const file of imageFiles) {
             if (file && file.type.startsWith("image/")) {
-              const imageUrl = await uploadImage(file);
-              uploadedImages.push(imageUrl);
+              const url = await uploadImage(file);
+              if (url) uploadedImages.push(url);
             }
           }
-
-          // 🎯 Return color object in multilingual format with images and stock
-          return {
-            colorName: {
-              en: input.colorName,
-              fr: input.colorName, // Optional: replace with translations if needed
-              ar: input.colorName,
-            },
-            images: uploadedImages,
-            stock: Number(input.stock),
-          };
         }
 
-        return null; // ⛔ Skip invalid color blocks
+        return {
+          colorName: { en: colorName, fr: colorName, ar: colorName },
+          images: uploadedImages,           // 👈 multiple images sent to backend
+          stock: Number(stock) || 0,
+        };
       })
     );
 
-    // 🧼 Remove null values (failed or empty color blocks)
+    // 🧼 Remove nulls
     const filteredColors = colors.filter(Boolean);
 
-    // 📦 Construct final product data to send
+    // 📦 Final product payload
     const newProductData = {
       ...data,
       mainCategory,
@@ -169,50 +197,37 @@ const AddProduct = () => {
       brand: data.brand || "",
       oldPrice: Number(data.oldPrice),
       newPrice: Number(data.newPrice),
-      stockQuantity: filteredColors[0]?.stock || 0, // Initial stock from first color
+      stockQuantity: filteredColors[0]?.stock || 0,
+      trending: !!data.trending,
     };
 
     try {
-      // 🚀 Submit product using RTK Query mutation
       await addProduct(newProductData).unwrap();
-
-      // ✅ Success alert and reset form
       Swal.fire("Succès!", "Produit ajouté avec succès!", "success");
       reset();
       setCoverImageFile(null);
       setCoverPreviewURL("");
       setColorInputs([]);
     } catch (error) {
-      // ❌ Error handling on failure
       console.error("❌ Error adding product:", error?.data || error);
       Swal.fire("Erreur!", "Échec de l'ajout du produit.", "error");
     }
   };
 
-
-    // 🧾 Render the form UI
+  // 🧾 Render the form UI
   return (
     <div className="add-product-container">
       <h2 className="add-product-title">Ajouter un nouveau produit</h2>
 
       {/* 📝 Product Form */}
       <form onSubmit={handleSubmit(onSubmit)} className="add-product-form">
-
         {/* 🏷️ Product Title */}
         <label>Nom du produit</label>
-        <input
-          {...register("title")}
-          placeholder="Nom du produit"
-          required
-        />
+        <input {...register("title")} placeholder="Nom du produit" required />
 
         {/* 🧾 Product Description */}
         <label>Description du produit</label>
-        <textarea
-          {...register("description")}
-          placeholder="Description"
-          required
-        />
+        <textarea {...register("description")} placeholder="Description" required />
 
         {/* 📁 Main Category Selector */}
         <label>Catégorie principale</label>
@@ -227,7 +242,7 @@ const AddProduct = () => {
           <option value="Enfants">Enfants</option>
         </select>
 
-        {/* 📂 Show sub-category selector only if mainCategory is selected */}
+        {/* 📂 Subcategory */}
         {mainCategory && (
           <>
             <label>Sous-catégorie</label>
@@ -251,32 +266,20 @@ const AddProduct = () => {
         <select {...register("frameType")}>
           <option value="">Type de cadre</option>
           {frameTypeOptions.map((type, idx) => (
-            <option key={idx} value={type}>{type}</option>
+            <option key={idx} value={type}>
+              {type}
+            </option>
           ))}
         </select>
 
         {/* 🏷️ Brand Field */}
         <label>Marque</label>
-        <input
-          {...register("brand")}
-          placeholder="Marque du produit"
-          required
-        />
+        <input {...register("brand")} placeholder="Marque du produit" required />
 
         {/* 💰 Old & New Prices */}
         <div className="price-grid">
-          <input
-            {...register("oldPrice")}
-            type="number"
-            placeholder="Prix initial"
-            required
-          />
-          <input
-            {...register("newPrice")}
-            type="number"
-            placeholder="Prix actuel"
-            required
-          />
+          <input {...register("oldPrice")} type="number" placeholder="Prix initial" required />
+          <input {...register("newPrice")} type="number" placeholder="Prix actuel" required />
         </div>
 
         {/* 📈 Trending Checkbox */}
@@ -287,95 +290,72 @@ const AddProduct = () => {
 
         {/* 🖼️ Cover Image Upload */}
         <label>Image principale</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleCoverImageChange}
-          required
-        />
-
-        {/* 🖼️ Cover Image Preview */}
+        <input type="file" accept="image/*" onChange={handleCoverImageChange} required />
         {coverPreviewURL && (
-          <img
-            src={coverPreviewURL}
-            alt="Aperçu"
-            className="cover-preview"
-          />
+          <img src={coverPreviewURL} alt="Aperçu" className="cover-preview" />
         )}
 
         {/* 🎨 Product Colors Section */}
         <label>Couleurs du produit</label>
         {colorInputs.map((input, index) => (
           <div key={index} className="color-block">
-            {/* 🎨 Color Name Input */}
+            {/* 🎨 Color Name & Stock */}
             <input
               type="text"
               placeholder="Nom de la couleur"
               value={input.colorName}
-              onChange={(e) =>
-                handleColorInputChange(index, "colorName", e.target.value)
-              }
+              onChange={(e) => handleColorInputChange(index, "colorName", e.target.value)}
               required
             />
-
-            {/* 🔢 Stock Quantity Input */}
             <input
               type="number"
               placeholder="Quantité en stock"
               value={input.stock}
-              onChange={(e) =>
-                handleColorInputChange(index, "stock", Number(e.target.value))
-              }
+              onChange={(e) => handleColorInputChange(index, "stock", Number(e.target.value))}
               required
             />
 
+            {/* 🖼️ Previews */}
+            <div className="image-preview-row">
+              {(input.previewURLs || []).map((url, i) =>
+                url ? (
+                  <div key={i} className="image-preview-group">
+                    <img src={url} alt={`Aperçu ${i + 1}`} className="color-preview" />
+                    <button
+                      type="button"
+                      className="btn-remove-img"
+                      onClick={() => removeImageAt(index, i)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                ) : null
+              )}
+            </div>
 
-                     {/* 🔁 Loop through multiple image previews */}
-            {input.imageFiles?.map((file, i) => (
-              <div key={i} className="image-preview-group">
-                {/* 📤 Upload input for each image */}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file && file.type.startsWith("image/")) {
-                      const newFiles = [...(input.imageFiles || [])];
-                      const newPreviews = [...(input.previewURLs || [])];
-                      newFiles[i] = file;
-                      newPreviews[i] = URL.createObjectURL(file);
-                      handleColorInputChange(index, "imageFiles", newFiles);
-                      handleColorInputChange(index, "previewURLs", newPreviews);
-                    }
-                  }}
-                />
-
-                {/* 🖼️ Show image preview if available */}
-                {input.previewURLs?.[i] && (
-                  <img
-                    src={input.previewURLs[i]}
-                    alt={`Aperçu ${i + 1}`}
-                    className="color-preview"
+            {/* 📤 Inputs for each slot */}
+            <div className="image-inputs-row">
+              {(input.imageFiles || []).map((_, i) => (
+                <div key={i} className="image-input-item">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => updateImageAt(index, i, e.target.files?.[0])}
                   />
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
 
-            {/* ➕ Button to add another image input for this color */}
+            {/* ➕ Add image slot */}
             <button
               type="button"
-              onClick={() => {
-                const newFiles = [...(input.imageFiles || []), null];
-                const newPreviews = [...(input.previewURLs || []), ""];
-                handleColorInputChange(index, "imageFiles", newFiles);
-                handleColorInputChange(index, "previewURLs", newPreviews);
-              }}
+              onClick={() => addImageSlot(index)}
               className="btn-add-more-img"
             >
               + Ajouter une image
             </button>
 
-            {/* ❌ Button to delete this entire color block */}
+            {/* ❌ Delete this color */}
             <button
               type="button"
               onClick={() => deleteColorInput(index)}
@@ -387,19 +367,12 @@ const AddProduct = () => {
         ))}
 
         {/* ➕ Add a new empty color block */}
-        <button
-          type="button"
-          onClick={addColorInput}
-          className="btn-add-color"
-        >
+        <button type="button" onClick={addColorInput} className="btn-add-color">
           Ajouter une couleur
         </button>
 
         {/* ✅ Submit form button */}
-        <button
-          type="submit"
-          className="btn-submit"
-        >
+        <button type="submit" className="btn-submit">
           {isLoading ? "Ajout en cours..." : "Ajouter le produit"}
         </button>
       </form>
