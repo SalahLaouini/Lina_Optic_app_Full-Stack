@@ -1,0 +1,213 @@
+/* ===============================
+   🖥️ Main Checkout Page Container
+================================= */
+.screen-CheckoutPage {
+  margin-top: 8%;
+}
+
+/* ===============================
+   🧾 Checkout Card Container
+================================= */
+.checkout-wrapper {
+  padding: 4rem 1rem;
+  background: linear-gradient(to bottom, #f7fbff, #eef2f8);
+  min-height: 100vh;
+}
+
+.checkout-container {
+  max-width: 900px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #d8e4ee;
+}
+
+.checkout-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1c3b58;
+  margin-bottom: 2rem;
+}
+
+.checkout-summary {
+  background-color: #f1f6fb;
+  border: 1px solid #cddfea;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #1c3b58;
+  margin-bottom: 2.5rem;
+}
+
+.checkout-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.form-section {
+  flex: 1;
+  min-width: 280px;
+}
+
+.form-section-title {
+  font-size: 1.2rem;
+  color: #1c3b58;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: block;
+  color: #2a2a2a;
+}
+
+.form-input {
+  width: 100% !important;
+  padding: 0.65rem 1rem;
+  border: 1px solid #cbd6e2;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9fbfc;
+  color: #1c3b58;
+}
+
+.form-input:focus {
+  border-color: #4f77a7;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.form-input.disabled {
+  background-color: #eaeff5;
+  cursor: not-allowed;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ✅ Fix for smaller screens without breaking layout */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-input {
+    font-size: 0.95rem;
+  }
+}
+
+.form-footer {
+  width: 100%;
+  margin-top: 2.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.checkbox {
+  margin-right: 0.6rem;
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-label .link {
+  color: #1c3b58;
+  text-decoration: underline;
+  font-weight: 500;
+  white-space: nowrap;
+  margin: 0 4px;
+}
+
+.terms-text {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.checkout-button.enabled {
+  background-color: #1c3b58;
+  color: white;
+}
+
+.checkout-button.enabled:hover {
+  background-color: #2a4c70;
+}
+
+.checkout-button.disabled {
+  background-color: #ccd6dd;
+  color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: #e63946;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+/* ✅ Prevent input overflow and ensure mobile friendliness */
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-input {
+    width: 95% !important;
+    max-width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: block;
+  }
+
+  .form-group {
+    width: 95%;
+  }
+
+  .checkout-container {
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+  }
+
+  .checkout-title {
+    font-size: 1.5rem;
+  }
+
+  .checkout-button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}

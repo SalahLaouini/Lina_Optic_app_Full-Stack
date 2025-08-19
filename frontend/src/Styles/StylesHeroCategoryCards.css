@@ -1,0 +1,161 @@
+/* ===============================
+🌟 Container Setup
+=============================== */
+.category-cards-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+
+/* ===============================
+🖼️ Category Card Base
+=============================== */
+.category-card {
+  position: relative;
+  flex: 1 1 420px;
+  height: 600px; /* Height to show head + neck clearly */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.02); /* Subtle lift on hover */
+}
+
+
+/* ===============================
+🔍 Zoom Layer
+=============================== */
+.zoom-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 110%; /* Slight zoom default */
+  background-position: center center; /* Center face and glasses */
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.5s ease, background-position 0.3s ease;
+}
+
+.category-card:hover .zoom-layer {
+  transform: scale(1.07); /* Zoom on hover */
+}
+
+.hidden-img {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+
+/* ===============================
+🖱️ Optional Custom Cursor (if used)
+=============================== */
+.category-card-cursor {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #c9202a;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 8px rgba(201, 32, 42, 0.3);
+  mix-blend-mode: difference;
+}
+
+
+/* ===============================
+✨ Overlay Text Content
+=============================== */
+.card-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(1px);
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+}
+
+.card-subtitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card-link {
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-bottom: 2px solid #fff;
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+.card-link:hover {
+  color: #ffd5d5;
+  border-bottom-color: #ffd5d5;
+}
+
+
+.hidden-img {
+  display: none; /* Preload purpose only, not rendered */
+}
+
+/* ===============================
+✅ Full Clickable Area Link
+=============================== */
+.category-card-link-wrapper {
+  text-decoration: none;
+  display: contents; /* Preserve layout inside link */
+}
+
+
+/* ===============================
+📱 Responsive Adjustments
+=============================== */
+@media (max-width: 768px) {
+  .category-card {
+    flex: 1 1 100%;
+    height: 480px;
+  }
+
+  .card-overlay {
+    bottom: 16px;
+    left: 16px;
+    padding: 0.7rem 1rem;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+  }
+
+  .card-link {
+    font-size: 0.85rem;
+  }
+}

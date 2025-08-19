@@ -1,0 +1,275 @@
+/* ===============================
+📦 Add Product Container
+================================= */
+.add-product-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  border: 1px solid #dbeafe;
+}
+
+/* ===============================
+🏷️ Title
+================================= */
+/* ===============================
+🏷️ Title (Improved)
+================================= */
+.add-product-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1d4ed8;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.add-product-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+
+/* ===============================
+📄 Form Layout
+================================= */
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ===============================
+✏️ Input, Select, Textarea
+================================= */
+.add-product-form input,
+.add-product-form select,
+.add-product-form textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: border 0.2s ease;
+}
+
+.add-product-form input:focus,
+.add-product-form select:focus,
+.add-product-form textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+
+/* ===============================
+➕ Add More Image Button
+================================= */
+.btn-add-more-img {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-add-more-img:hover {
+  background-color: #bae6fd;
+  color: #0c4a6e;
+  border-color: #7dd3fc;
+  transform: translateY(-1px);
+}
+
+
+
+
+/* ===============================
+💰 Price Grid
+================================= */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* ===============================
+☑️ Checkbox
+================================= */
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+/* ===============================
+🖼️ Image Previews
+================================= */
+
+
+/* 📌 Cover image preview */
+.cover-preview,
+.update-cover-preview {
+  width: 240px;          /* larger display */
+  height: auto;          /* keep aspect ratio */
+  border-radius: 10px;
+  margin: 10px 0;
+  object-fit: contain;   /* glasses won’t get stretched */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* elegant depth */
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+.cover-preview:hover,
+.update-cover-preview:hover {
+  transform: scale(1.05); /* zoom effect */
+}
+
+/* 🎨 Color image previews */
+.color-preview {
+  width: 160px;          /* bigger thumbnails */
+  height: auto;
+  border-radius: 8px;
+  margin: 6px;
+  object-fit: contain;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: zoom-in;
+}
+
+.color-preview:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* 📱 Mobile-friendly */
+@media (max-width: 600px) {
+  .cover-preview,
+  .update-cover-preview {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .color-preview {
+    width: 48%;
+    max-width: 140px;
+  }
+}
+
+
+/* ===============================
+🎨 Color Input Block
+================================= */
+.color-block {
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+/* ===============================
+✅ Buttons
+================================= */
+.btn-submit {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #2563eb;
+}
+
+.btn-add-color {
+  background-color: #bfdbfe;
+  color: #1e3a8a;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-add-color:hover {
+  background-color: #93c5fd;
+}
+
+.btn-delete-color {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-delete-color:hover {
+  background-color: #dc2626;
+}
+
+/* ===============================
+📱 Responsive Adjustments
+================================= */
+@media (max-width: 640px) {
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cover-preview,
+  .color-preview {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* 🖼️ Remove image button */
+.btn-remove-img {
+  background: #fff; /* clean white to match product background */
+  color: #e63946;   /* elegant red tone for delete action */
+  border: 1.5px solid #e63946;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* 🖱️ Hover effect */
+.btn-remove-img:hover {
+  background: #e63946;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(230, 57, 70, 0.25);
+}
+
+/* 📱 Mobile-friendly */
+@media (max-width: 600px) {
+  .btn-remove-img {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px;
+  }
+}

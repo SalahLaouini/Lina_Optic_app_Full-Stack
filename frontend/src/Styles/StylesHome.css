@@ -1,0 +1,80 @@
+/* =================== General Layout =================== */
+.home-container {
+    padding: 2rem 1rem;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+
+
+/* =================== FadeInSections For components of Home Page =================== */
+
+  .fade-in-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+  
+  /* =================== Hero Section =================== */
+  .hero-section {
+    margin-top: 3rem;
+    padding: 2.5rem 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-title span {
+    color: #006a71; /* Teal tone for "Lina Optic" brand identity */
+  }
+  
+  .welcome-text {
+    font-size: 1.1rem;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto 1.2rem auto;
+    line-height: 1.7;
+  }
+  
+  /* =================== Sellers Section =================== */
+  .sellers-section {
+    padding: 3rem 1rem;
+    background-color: #ffffff;
+    margin-top: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #006a71;
+  }
+   
+  .section-subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

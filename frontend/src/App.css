@@ -1,0 +1,106 @@
+/* ✅ Import Google Fonts for use across the application */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+/* ✅ Force LTR direction across entire app (important to override language changes) */
+html, body {
+  direction: ltr !important;
+}
+
+/* ✅ Main content wrapper to ensure spacing under fixed navbar */
+.main-content {
+  padding-top: 90px; /* Match this to your Navbar's height */
+}
+
+/* ✅ Swiper (carousel) container full width/height */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* ✅ Each slide in swiper: white background, center contents */
+.swiper-slide {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ✅ Images inside Swiper slides should fully fit their container */
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ✅ Hide default previous button of swiper */
+.swiper-button-prev {
+  display: none !important;
+}
+
+/* ✅ Customize Swiper's next button using Tailwind utility (applied via @apply directive) */
+.swiper-button-next {
+  @apply bg-white p-5 rounded-full z-50 shadow-md;
+}
+
+/* ✅ Reduce arrow icon size inside Swiper navigation buttons */
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 16px !important;
+}
+
+/* ✅ Primary button styling with Tailwind utility classes */
+.btn-primary {
+  @apply bg-primary px-12 py-2 rounded-md text-base font-secondary font-bold hover:bg-secondary hover:text-white transition-all duration-200 cursor-pointer;
+}
+
+/* ✅ Enable smooth scroll behavior for internal links */
+.html {
+  scroll-behavior: smooth;
+}
+
+/* ✅ Base body styles for larger screens */
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ Responsive adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;       /* Reduce text size for readability */
+    padding: 10px;         /* Add spacing around content */
+  }
+
+  .container {
+    width: 100%;           /* Full width container */
+    padding: 10px;
+  }
+
+  .navbar {
+    flex-direction: column; /* Stack navbar items vertically */
+  }
+
+  .product-grid {
+    display: flex;
+    flex-direction: column; /* Stack products vertically */
+  }
+}
+
+/* ✅ Ensure all links are clean without underlines */
+a {
+  text-decoration: none !important;
+}
+
+/* ✅ Buttons have no default underline/border/outlines */
+button {
+  text-decoration: none !important;
+  border: none;
+  outline: none;
+}
+
+/* ✅ Ensure no unwanted underlines on text elements */
+p, span, h1, h2, h3, h4, h5, h6 {
+  text-decoration: none !important;
+}

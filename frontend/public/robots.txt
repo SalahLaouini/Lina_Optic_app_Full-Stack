@@ -1,0 +1,11 @@
+# Robots.txt for Lina Optic
+# Allow search engines to crawl your site
+
+User-agent: *
+Disallow: /admin/        # Block private admin pages (if you have one)
+Disallow: /cart/         # Block shopping cart
+Disallow: /checkout/     # Block checkout page
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.linaoptic.com/sitemap.xml

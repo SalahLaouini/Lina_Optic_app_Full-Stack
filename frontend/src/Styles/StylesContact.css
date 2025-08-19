@@ -1,0 +1,187 @@
+/* ===============================
+🌐 Global Contact Page Styles
+================================= */
+.contact-page {
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f4f8;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* ===============================
+🏞️ Hero Section with Animated Title
+================================= */
+.contact-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contact-hero-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #2a4eaa;
+  letter-spacing: 1px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: heroFadeIn 1.2s ease-out forwards;
+  text-shadow: 0 0 6px rgba(42, 78, 170, 0.2);
+}
+
+.contact-hero-title::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, #2a4eaa, #4479c9);
+  border-radius: 2px;
+  animation: underlineSlideIn 1.2s ease-out 0.8s forwards;
+}
+
+.contact-hero-subtitle {
+  font-size: 1.05rem;
+  color: #666;
+  margin-top: 0.8rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* ===============================
+📐 Flex Layout for Contact Info + Form
+================================= */
+.contact-content-wrapper {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto 3rem auto;
+  padding: 0 1rem;
+}
+
+/* ===============================
+📍 Contact Info Block (Left)
+================================= */
+.contact-info {
+  flex: 1;
+  min-width: 300px;
+  max-width: 450px;
+  background-color: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  height: 100%;
+  animation: fadeIn 0.8s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ⬅️ centers content horizontally */
+  text-align: center;  /* ⬅️ centers text */
+}
+
+
+.contact-info-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2a4eaa;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-info-list li {
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  transition: transform 0.3s ease;
+}
+
+.contact-info-list li:hover {
+  transform: translateX(5px);
+}
+
+.contact-icon {
+  font-size: 1.3rem;
+  color: #2a4eaa;
+}
+
+/* ===============================
+📨 Contact Form Wrapper (Right)
+================================= */
+.contact-form-wrapper {
+  flex: 1;
+  min-width: 300px;
+  max-width: 550px;
+}
+
+/* ===============================
+🗺️ Google Map Block
+================================= */
+.contact-map-wrapper {
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 1100px;
+  height: 360px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border: 2px solid #e0e0e0;
+  background-color: #fff;
+}
+
+.contact-map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+
+/* ===============================
+💫 Global Animations
+================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineSlideIn {
+  to {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-info-list li {
+    justify-content: center; /* center text + icon inside each row */
+    text-align: center;
+  }
+}

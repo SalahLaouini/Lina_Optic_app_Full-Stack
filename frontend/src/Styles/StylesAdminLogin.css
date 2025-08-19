@@ -1,0 +1,98 @@
+/* 🌐 Admin Login Page Container */
+.admin-login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f0f4f8; /* Soft light background */
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 📦 Login Box */
+.admin-login-box {
+  background: #ffffff;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* 🧾 Title */
+.admin-login-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1e3a8a; /* Lina Optic navy blue */
+  margin-bottom: 2rem;
+}
+
+/* 📥 Form Container */
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  text-align: left;
+}
+
+/* 📦 Form Group */
+.admin-login-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔤 Label Text */
+.admin-login-form label {
+  font-size: 0.95rem;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+/* 🧾 Input Fields */
+.admin-login-form input {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.admin-login-form input:focus {
+  outline: none;
+  border-color: #1e3a8a;
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2);
+}
+
+/* ❗ Error Message */
+.admin-error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+/* ✅ Submit Button */
+.admin-login-btn {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-login-btn:hover {
+  background-color: #2563eb;
+}
+
+/* 📄 Footer Text */
+.admin-login-footer {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-align: center;
+}

@@ -1,0 +1,257 @@
+/* ========================================
+📄 GENERAL PAGE STRUCTURE
+======================================== */
+.order-page {
+  background: #fdfbf9; /* Soft beige background for comfort */
+  padding: 2rem 1rem;
+  min-height: 100vh;
+}
+/* ================================
+🌐 GLOBAL PAGE STYLE
+================================ */
+.order-page {
+  background: linear-gradient(to bottom, #fdfcfb, #f0f0f0);
+  padding: 3rem 1.5rem;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Main container for all content */
+.order-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eee;
+}
+
+/* ================================
+🧾 PAGE TITLE
+================================ */
+.order-title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 2.5rem;
+}
+
+/* Empty state message */
+.text-message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+  margin-top: 3rem;
+}
+
+/* ================================
+📦 ORDER LIST
+================================ */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Individual order card */
+.order-card {
+  background-color: #fdfcfb;
+  border-left: 6px solid #588bd8;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ================================
+📅 ORDER HEADER
+================================ */
+.order-info-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+.order-email span {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: inline-block;
+  max-width: 100%;
+}
+
+
+.order-id,
+.order-total {
+  font-weight: 500;
+  margin-top: 0.4rem;
+  color: #222;
+}
+
+.order-total span {
+  color: #007a99;
+  font-weight: 700;
+}
+
+/* ================================
+📋 SUBTITLE
+================================ */
+.order-subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
+  color: #2d4a5a;
+}
+
+/* ================================
+🛍️ ORDERED PRODUCTS
+================================ */
+.order-products {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.order-product-item {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 10px;
+  border: 1px solid #e2e2e2;
+  transition: box-shadow 0.2s ease;
+}
+
+.order-product-item:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ================================
+🖼️ PRODUCT IMAGE
+================================ */
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #4e8acf;
+  box-shadow: 0 0 10px rgba(202, 162, 110, 0.15);
+}
+
+/* ================================
+📝 PRODUCT INFO
+================================ */
+.product-info {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.product-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ================================
+❌ REMOVE PRODUCT BUTTON
+================================ */
+.btn-red {
+  margin-top: 0.6rem;
+  background-color: #d90429;
+  color: #fff;
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.btn-red:hover {
+  background-color: #a0001e;
+}
+
+/* ================================
+🗑️ DELETE ORDER BUTTON
+================================ */
+.btn-delete {
+  margin-top: 2rem;
+  background-color: #6a040f;
+  color: #fff;
+  padding: 0.65rem 1.3rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.btn-delete:hover {
+  background-color: #540208;
+}
+
+/* Disabled button style */
+.btn-disabled {
+  background-color: #aaa !important;
+  cursor: not-allowed;
+}
+
+/* ================================
+📱 RESPONSIVE DESIGN
+================================ */
+@media (max-width: 768px) {
+  .order-container {
+    padding: 1.5rem;
+  }
+
+  .order-product-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .product-img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+  }
+
+  .product-info {
+    margin-top: 0.8rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .btn-red {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-red:hover {
+    background-color: #c82333;
+  }
+
+  .btn-red:active {
+    transform: scale(0.96);
+  }
+}

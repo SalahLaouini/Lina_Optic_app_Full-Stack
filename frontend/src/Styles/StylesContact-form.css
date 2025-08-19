@@ -1,0 +1,157 @@
+/* ===============================
+📩 Conteneur du formulaire de contact | Contact Form Container
+================================= */
+.contact-form-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ===============================
+📄 Structure du formulaire | Form Structure
+================================= */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===============================
+🏷️ Titre animé + description | Title + Animated Underline
+================================= */
+.contact-title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #2a4eaa;
+  position: relative;
+  display: inline-block;
+  margin: 0 auto 0.5rem auto;
+  animation: fadeInTitle 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+  text-align: center;
+  text-shadow: 0 0 6px rgba(42, 78, 170, 0.25);
+}
+
+/* ✨ Soulignement animé sous le titre | Underline Animation */
+.contact-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 3px;
+  background-color: #2a4eaa;
+  border-radius: 2px;
+  animation: underlineGrow 1s ease-out 0.8s forwards;
+}
+
+@keyframes fadeInTitle {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineGrow {
+  to {
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+.contact-description {
+  font-size: 1rem;
+  text-align: center;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* ===============================
+✏️ Champs de saisie | Inputs & Textarea
+================================= */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+  background-color: #fdfdfd;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #2a4eaa;
+  box-shadow: 0 0 6px rgba(42, 78, 170, 0.3);
+  outline: none;
+}
+
+.contact-form textarea {
+  height: 140px;
+  resize: none;
+}
+
+/* ===============================
+📤 Bouton d'envoi | Submit Button
+================================= */
+.contact-form button {
+  padding: 12px;
+  background-color: #2a4eaa;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+  background-color: #4479c9;
+  transform: translateY(-2px);
+}
+
+.contact-form button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* ===============================
+✅ Message de succès & ❌ d’erreur | Feedback
+================================= */
+.message-status {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: green;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.error-message {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: red;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ===============================
+💫 Animation générale d’apparition
+================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

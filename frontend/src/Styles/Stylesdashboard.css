@@ -1,0 +1,245 @@
+/* ===============================
+   🧾 Dashboard Main Layout
+================================= */
+.dashboard-main {
+  padding: 2rem;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+}
+
+/* ===============================
+   🌀 Loading Spinner Area
+================================= */
+.dashboard-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background-color: #f3f4f6;
+}
+
+/* ===============================
+   📊 Statistics Summary
+================================= */
+.dashboard-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 240px;
+  max-width: 300px;
+  padding: 1.2rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.stat-icon {
+  height: 3rem;
+  width: 3rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  color: #3b82f6;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ===============================
+   📈 Chart and Orders Panels
+================================= */
+.dashboard-section {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  border: 2px dashed #e5e7eb;
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 300px;
+}
+
+/* ===============================
+   📱 Responsive Adjustments
+================================= */
+/* ===============================
+   🧾 Dashboard Main Layout
+================================= */
+.dashboard-main {
+  padding: 2rem;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+}
+
+/* ===============================
+   🌀 Loading Spinner Area
+================================= */
+.dashboard-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background-color: #f3f4f6;
+}
+
+/* ===============================
+   📊 Statistics Summary
+================================= */
+.dashboard-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 240px;
+  max-width: 300px;
+  padding: 1.2rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.stat-icon {
+  height: 3rem;
+  width: 3rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  color: #3b82f6;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ===============================
+   📈 Chart + Revenue Section
+================================= */
+.dashboard-section {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+/* 📊 Revenue Chart Wrapping */
+.revenue-chart-wrapper {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 1rem auto;
+}
+
+/* 🏷️ Title Styling */
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+/* 🖼️ Scrollable area to handle mobile overflow */
+.revenue-chart-scroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-bottom: 12px;
+  scrollbar-width: auto;             /* Firefox */
+  scrollbar-color: #1c3b58 #e5e7eb;  /* Thumb / Track */
+}
+
+/* ✅ Scrollbar styling for WebKit (Chrome, Android) */
+.revenue-chart-scroll::-webkit-scrollbar {
+  height: 10px;
+  background-color: #e5e7eb;
+  display: block;
+}
+
+.revenue-chart-scroll::-webkit-scrollbar-thumb {
+  background-color: #1c3b58;
+  border-radius: 6px;
+}
+
+/* 🧱 Force overflow by minimum width */
+.chart-inner {
+  min-width: 700px;
+  height: 300px;
+}
+
+/* ===============================
+   📱 Responsive Adjustments
+================================= */
+@media (max-width: 768px) {
+  .stat-card {
+    flex: 1 1 100%;
+  }
+
+  .chart-inner {
+    min-width: 650px;
+    height: 250px;
+  }
+
+  .chart-title {
+    font-size: 1.1rem;
+  }
+
+  .dashboard-main {
+    padding: 1rem;
+  }
+}

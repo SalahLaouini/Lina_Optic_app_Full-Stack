@@ -1,0 +1,115 @@
+.lina-footer {
+  background-color: #007a99;
+  color: white;
+  padding: 3rem 2rem 2rem;
+  font-family: "Inter", sans-serif;
+  border-top: 2px solid #cce6ea;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* === Section Titles === */
+.footer-section h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  border-bottom: 1px solid #cce6ea;
+  padding-bottom: 0.5rem;
+}
+
+/* === Section Paragraphs and Lists === */
+.footer-section p,
+.footer-section li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #e0f2f1;
+  margin-bottom: 0.6rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section a {
+  color: #e0f2f1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* === Icons === */
+.footer-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* === Embedded Map === */
+.footer-map-small {
+  width: 100%;
+  height: 200px;
+  margin-top: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e0f2f1;
+}
+
+/* === Footer Bottom Bar === */
+.footer-bottom {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #cce6ea;
+  padding-top: 1rem;
+  border-top: 1px solid #cce6ea;
+}
+
+/* === Social Icons === */
+.footer-socials {
+  margin-top: 1rem;
+  display: flex;
+  gap: 14px;
+}
+
+.footer-socials a {
+  color: #e0f2f1;
+  font-size: 1.3rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* === Mobile View === */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-section {
+    margin-bottom: 2rem;
+  }
+
+  .footer-map-small {
+    height: 180px;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,88 @@
+/* ===============================
+📦 Gestion des Commandes - Wrapper
+================================= */
+.manage-orders-wrapper {
+  padding: 2rem 1rem;
+  background-color: #f0f8ff; /* Light blue background */
+}
+
+/* ===============================
+📄 Section Commandes
+================================= */
+.orders-section {
+  max-width: 1200px;
+  margin: 0 auto 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #dbeafe; /* Blue border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+/* ===============================
+🏷️ Titre Section
+================================= */
+.orders-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+    text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.orders-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* ===============================
+📱 Responsive Tables
+================================= */
+.orders-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.orders-section th,
+.orders-section td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.orders-section th {
+  background-color: #eff6ff;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+/* ===============================
+🔘 Status Badge Example (Optional)
+================================= */
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* ===============================
+🧾 Empty State
+================================= */
+.empty-orders {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #64748b;
+}

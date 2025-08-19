@@ -1,0 +1,15 @@
+/* ✅ Import Tailwind CSS layers: base styles, component styles, and utility classes */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ When the document direction is RTL (Right-to-Left), apply appropriate direction and fallback font */
+body[dir="rtl"] {
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fallback fonts for Arabic text */
+}
+
+/* ✅ When the document direction is LTR (Left-to-Right), enforce LTR layout */
+body[dir="ltr"] {
+  direction: ltr;
+}

@@ -1,0 +1,63 @@
+/* ===============================
+   🧾 About Page Container
+================================= */
+.about-page {
+  padding: 2rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* ===============================
+   🧩 Section Layout
+================================= */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* ===============================
+   🧱 Individual Block
+================================= */
+.about-block {
+  text-align: center;
+}
+
+/* ===============================
+   🏷️ Title Styling
+================================= */
+.about-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+  border-bottom: 2px solid #ccc;
+}
+
+/* ===============================
+   📄 Paragraph Text
+================================= */
+.about-text {
+  font-size: 1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0.5rem auto;
+  line-height: 1.6;
+}
+
+/* ===============================
+   🖼️ Image Display
+================================= */
+.about-image {
+  display: block;
+  margin: 1rem auto 0 auto; /* top spacing and center alignment */
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
