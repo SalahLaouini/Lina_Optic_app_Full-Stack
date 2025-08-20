@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react"; 
 import { useLocation } from "react-router-dom";
 import ProductCard from "./products/ProductCard";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
@@ -48,7 +48,7 @@ const Products = () => {
   const categoryFromUrl = queryParams.get("category");
   const subCategoryFromUrl = queryParams.get("subCategory");
 
-  const [priceRange, setPriceRange] = useState([0, 1800]); // 💰 Default price range
+  const [priceRange, setPriceRange] = useState([0, 4500]); // 💰 Default price range
 
   // 🌐 Auto-select category/subCategory from URL
   useEffect(() => {
@@ -128,97 +128,104 @@ const Products = () => {
     );
   }
 
+  return (
+    <div className="our-sellers">
+      <Helmet>
+        <title>Lunettes opticien & Lunettes Optic en Tunisie | Produits | Lina Optic</title>
+        <meta
+          name="description"
+          content="Découvrez nos lunettes optiques, lunettes solaires et lentilles en Tunisie. Filtres par catégorie, sous-catégorie, marque et type de cadre chez Lina Optic."
+        />
+        <meta
+          name="keywords"
+          content="Lunettes opticien, Lunettes Optic, Optic Tunisie, Lunettes solaires opticien, Opticien Tunisie, Catalogue lunettes Tunisie"
+        />
+      </Helmet>
 
+      <h2 className="animated-products-title">Nos Produits</h2>
 
-
- 
-   return (
-  <div className="our-sellers">
-    <h2 className="animated-products-title">Nos Produits</h2>
-
-    <div className="products-page-wrapper">
-      {/* 🔍 Left Filter Sidebar */}
-      <div className="selectors-wrapper-left">
-        {/* Row: Catégorie + Sous-catégorie */}
-        <div className="selector-row">
-          <SelectorsPageProducts
-            options={["Hommes", "Femmes", "Enfants"]}
-            label="Catégorie"
-            onSelect={setSelectedCategory}
-            selected={selectedCategory}
-          />
-
-          <SelectorsPageProducts
-            options={["Optique", "Solaire", "Lentilles"]}
-            label="Sous-catégorie"
-            onSelect={setSelectedSubCategory}
-            selected={selectedSubCategory}
-          />
-        </div>
-
-        {/* Row: Marque + Cadre + Prix */}
-        <div className="selector-row">
-          <div className="selector-column">
+      <div className="products-page-wrapper">
+        {/* 🔍 Left Filter Sidebar */}
+        <div className="selectors-wrapper-left">
+          {/* Row: Catégorie + Sous-catégorie */}
+          <div className="selector-row">
             <SelectorsPageProducts
-              options={uniqueBrands}
-              label="Marque"
-              onSelect={setSelectedBrand}
-              selected={selectedBrand}
+              options={["Hommes", "Femmes", "Enfants"]}
+              label="Catégorie"
+              onSelect={setSelectedCategory}
+              selected={selectedCategory}
             />
 
-            <FadeInSection delay={0.1}>
-              <div className="selector-sidebar-lina">
-                <PriceSlider
-                  min={0}
-                  max={1800}
-                  priceRange={priceRange}
-                  onChange={setPriceRange}
-                />
-              </div>
-            </FadeInSection>
-          </div>
-
-          <div className="selector-column">
             <SelectorsPageProducts
-              options={frameTypeOptions}
-              label="Type de Cadre"
-              onSelect={setSelectedFrameType}
-              selected={selectedFrameType}
+              options={["Optique", "Solaire", "Lentilles"]}
+              label="Sous-catégorie"
+              onSelect={setSelectedSubCategory}
+              selected={selectedSubCategory}
             />
           </div>
-        </div>
-      </div>
 
-      {/* 🛍 Product Grid */}
-      <div className="products-grid-wrapper">
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div className="products-grid">
-            {visibleProducts.map((p) => (
-              <ProductCard key={p._id} product={p} />
-            ))}
+          {/* Row: Marque + Cadre + Prix */}
+          <div className="selector-row">
+            <div className="selector-column">
+              <SelectorsPageProducts
+                options={uniqueBrands}
+                label="Marque"
+                onSelect={setSelectedBrand}
+                selected={selectedBrand}
+              />
+
+              <FadeInSection delay={0.1}>
+                <div className="selector-sidebar-lina">
+                  <PriceSlider
+                    min={0}
+                    max={4500}
+                    priceRange={priceRange}
+                    onChange={setPriceRange}
+                  />
+                </div>
+              </FadeInSection>
+            </div>
+
+            <div className="selector-column">
+              <SelectorsPageProducts
+                options={frameTypeOptions}
+                label="Type de Cadre"
+                onSelect={setSelectedFrameType}
+                selected={selectedFrameType}
+              />
+            </div>
           </div>
         </div>
 
-        {visibleProducts.length === 0 && (
-          <p className="no-products">Aucun produit ne correspond aux filtres.</p>
-        )}
-
-        {visibleCount < filteredProducts.length && (
-          <div className="load-more-wrapper">
-            {isLoadingMore ? (
-              <div className="loader-spinner"></div>
-            ) : (
-              <button onClick={handleLoadMore} className="load-more-btn">
-                Charger plus
-              </button>
-            )}
+        {/* 🛍 Product Grid */}
+        <div className="products-grid-wrapper">
+          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+            <div className="products-grid">
+              {visibleProducts.map((p) => (
+                <ProductCard key={p._id} product={p} />
+              ))}
+            </div>
           </div>
-        )}
+
+          {visibleProducts.length === 0 && (
+            <p className="no-products">Aucun produit ne correspond aux filtres.</p>
+          )}
+
+          {visibleCount < filteredProducts.length && (
+            <div className="load-more-wrapper">
+              {isLoadingMore ? (
+                <div className="loader-spinner"></div>
+              ) : (
+                <button onClick={handleLoadMore} className="load-more-btn">
+                  Charger plus
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 };
 
 export default Products;

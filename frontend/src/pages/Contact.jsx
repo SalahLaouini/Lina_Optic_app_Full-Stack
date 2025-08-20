@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import ContactForm from '../components/Contact-form.jsx';
 import "../Styles/StylesContact.css";
 import "../Styles/StylesContact-form.css";
@@ -11,7 +11,15 @@ const Contact = () => {
     <div className="contact-page">
       {/* 🔖 SEO title */}
       <Helmet>
-        <title>Contact | Lina Optic</title>
+        <title>Contact Opticien Tunisie | Lina Optic</title>
+        <meta
+          name="description"
+          content="Contactez Lina Optic, votre opticien en Tunisie : informations, adresses, horaires et prise de rendez-vous pour lunettes optiques, lunettes solaires et lentilles."
+        />
+        <meta
+          name="keywords"
+          content="Opticien Tunisie, Optic Tunisie, Contact opticien, Lunettes opticien, Site web opticien, Lina Optic Manouba"
+        />
       </Helmet>
 
       {/* ===============================
@@ -62,23 +70,19 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* =============================== 🗺️ Google Map Location =============================== */}
-{/* =============================== 🗺️ Map Location Block =============================== */}
-<div className="contact-map-wrapper">
-  <iframe
-  title="Lina Optic – Carte Manouba"
-  src="https://www.openstreetmap.org/export/embed.html?bbox=10.0895%2C36.8090%2C10.0935%2C36.8125&layer=mapnik&marker=36.8109%2C10.0915"
-  loading="lazy"
-  width="100%"
-  height="400"
-  frameBorder="0"
-  allowFullScreen
-  referrerPolicy="no-referrer-when-downgrade"
-/>
-
-</div>
-
-
+      {/* =============================== 🗺️ Map Location Block =============================== */}
+      <div className="contact-map-wrapper">
+        <iframe
+          title="Lina Optic – Carte Manouba"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=10.0895%2C36.8090%2C10.0935%2C36.8125&layer=mapnik&marker=36.8109%2C10.0915"
+          loading="lazy"
+          width="100%"
+          height="400"
+          frameBorder="0"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
     </div>
   );
 };
