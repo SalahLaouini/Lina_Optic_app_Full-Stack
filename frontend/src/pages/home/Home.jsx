@@ -13,16 +13,17 @@ const Home = () => {
     <div className="main-content">
       <div className="home-container">
         <Helmet>
-          <title>Opticien Tunisie | Optic Tunisie | Lunettes de vue & solaires | Lina Optic</title>
-          <meta
-            name="description"
-            content="Lina Optic – Opticien en Tunisie : lunettes optiques, lunettes solaires, lentilles de contact. Large choix pour hommes, femmes et enfants, conseils par opticiens diplômés."
-          />
-          <meta
-            name="keywords"
-            content="Opticien Tunisie, Optic Tunisie, Lunettes opticien, Lunettes Optic, Site web opticien, Lunettes solaires opticien, Opticien Manouba"
-          />
-        </Helmet>
+  <title>Opticien Tunisie | Optic Tunisie | Lunettes de vue & solaires | Lina Optic</title>
+  <meta
+    name="description"
+    content="Lina Optic, opticien en Tunisie (Manouba & Douar Hicher) : lunettes de vue, solaires et lentilles. Conseils par opticiens diplômés."
+  />
+  <meta
+    name="keywords"
+    content="Opticien Tunisie, Optic Tunisie, Lunettes opticien, Lunettes Optic, Site web opticien, Lunettes solaires opticien, Opticien Manouba"
+  />
+</Helmet>
+
 
         {/* ✨ Carousel Section */}
         <FadeInSection>

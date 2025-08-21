@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import ContactForm from '../components/Contact-form.jsx';
 import "../Styles/StylesContact.css";
 import "../Styles/StylesContact-form.css";
@@ -10,17 +10,19 @@ const Contact = () => {
   return (
     <div className="contact-page">
       {/* 🔖 SEO title */}
-      <Helmet>
-        <title>Contact Opticien Tunisie | Lina Optic</title>
-        <meta
-          name="description"
-          content="Contactez Lina Optic, votre opticien en Tunisie : informations, adresses, horaires et prise de rendez-vous pour lunettes optiques, lunettes solaires et lentilles."
-        />
-        <meta
-          name="keywords"
-          content="Opticien Tunisie, Optic Tunisie, Contact opticien, Lunettes opticien, Site web opticien, Lina Optic Manouba"
-        />
-      </Helmet>
+     <Helmet>
+  <title>Lunettes opticien & Lunettes Optic en Tunisie | Produits | Lina Optic</title>
+  <meta
+    name="description"
+    content="Découvrez nos lunettes optiques, solaires et lentilles en Tunisie. Filtrez par catégorie, marque et type de cadre chez Lina Optic."
+  />
+  <meta
+    name="keywords"
+    content="Lunettes opticien, Lunettes Optic, Optic Tunisie, Lunettes solaires opticien, Opticien Tunisie, Catalogue lunettes Tunisie"
+  />
+</Helmet>
+
+
 
       {/* ===============================
           🏞️ Hero Section with Animated Title
@@ -42,17 +44,25 @@ const Contact = () => {
           <ul className="contact-info-list">
             <li>
               <span className="contact-icon">📌</span>
-              61 rue Habib Bourguiba, Manouba 2010 
-              <br></br>
-              292 Avenue Khaled Ebn El Walid, Douar Hicher 61
+              <address className="contact-address">
+                61 Rue Habib Bourguiba<br />
+                Manouba 2010
+              </address>
+            </li>
+            <li>
+              <span className="contact-icon">📌</span>
+              <address className="contact-address">
+                292 Avenue Khaled Ebn El Walid<br />
+                Douar Hicher 61
+              </address>
             </li>
             <li>
               <span className="contact-icon">📧</span>
-              linaopticlunettes@gmail.com
+              <a href="mailto:linaopticlunettes@gmail.com">linaopticlunettes@gmail.com</a>
             </li>
             <li>
               <span className="contact-icon">📞</span>
-              +216 53 123 456
+              <a href="tel:+21653123456">+216 53 123 456</a>
             </li>
             <li>
               <span className="contact-icon">⏰</span>

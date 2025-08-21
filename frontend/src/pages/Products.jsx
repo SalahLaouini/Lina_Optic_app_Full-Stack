@@ -134,12 +134,14 @@ const Products = () => {
         <title>Lunettes opticien & Lunettes Optic en Tunisie | Produits | Lina Optic</title>
         <meta
           name="description"
-          content="Découvrez nos lunettes optiques, lunettes solaires et lentilles en Tunisie. Filtres par catégorie, sous-catégorie, marque et type de cadre chez Lina Optic."
+          content="Découvrez nos lunettes optiques, solaires et lentilles en Tunisie. Filtrez par catégorie, marque et type de cadre chez Lina Optic."
         />
         <meta
           name="keywords"
           content="Lunettes opticien, Lunettes Optic, Optic Tunisie, Lunettes solaires opticien, Opticien Tunisie, Catalogue lunettes Tunisie"
         />
+        {/* ✅ Canonical to help indexing */}
+        <link rel="canonical" href="https://www.linaoptic.com/products" />
       </Helmet>
 
       <h2 className="animated-products-title">Nos Produits</h2>

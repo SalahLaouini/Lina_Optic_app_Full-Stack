@@ -1,15 +1,36 @@
+// src/redux/features/wishlist/wishlistSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+
+const STORAGE_KEY = "linaoptic_wishlist_v1";
+
+// Helper: read from localStorage safely
+const loadWishlist = () => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+// Helper: write to localStorage safely
+const saveWishlist = (items) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    /* ignore write errors */
+  }
+};
 
 // 🧡 Wishlist slice to manage user's favorite products
 const wishlistSlice = createSlice({
   name: "wishlist",
 
-  // 🌟 Initial state: an empty wishlist
+  // 🌟 Initial state loads from localStorage
   initialState: {
-    wishlistItems: [],
+    wishlistItems: loadWishlist(),
   },
 
-  // 📦 Reducers to handle wishlist actions
   reducers: {
     // ➕ Add a product to the wishlist (only if not already present)
     addToWishlist: (state, action) => {
@@ -18,6 +39,7 @@ const wishlistSlice = createSlice({
       );
       if (!exists) {
         state.wishlistItems.push(action.payload);
+        saveWishlist(state.wishlistItems);
       }
     },
 
@@ -26,10 +48,17 @@ const wishlistSlice = createSlice({
       state.wishlistItems = state.wishlistItems.filter(
         (item) => item._id !== action.payload
       );
+      saveWishlist(state.wishlistItems);
+    },
+
+    // 🔁 Optional: rehydrate manually if you ever need to
+    setWishlistFromStorage: (state, action) => {
+      state.wishlistItems = Array.isArray(action.payload) ? action.payload : [];
+      saveWishlist(state.wishlistItems);
     },
   },
 });
 
-// 🚀 Export actions and reducer
-export const { addToWishlist, removeFromWishlist } = wishlistSlice.actions;
+export const { addToWishlist, removeFromWishlist, setWishlistFromStorage } =
+  wishlistSlice.actions;
 export default wishlistSlice.reducer;

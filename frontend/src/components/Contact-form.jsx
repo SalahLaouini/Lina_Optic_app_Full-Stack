@@ -1,78 +1,113 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+// ContactForm.jsx
+import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import getBaseUrl from "../utils/baseUrl"; // ⬅️ adjust path if needed
 
 const ContactForm = () => {
-  // 🧾 State to store form field values
+  // Form state
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
-  // ⏳ Loading state while submitting
   const [loading, setLoading] = useState(false);
 
-  // 🔄 Handle input changes and update form data state
+  // Generic change handler
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((s) => ({ ...s, [name]: value }));
   };
 
-  // 📤 Submit the form to backend endpoint
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // 🚫 Prevent default form reload
-    setLoading(true);
-
-    try {
-      // ✅ Send POST request to backend contact endpoint
-      await axios.post('https://lina-optic-app-backend.vercel.app/api/contact', formData);
-
-      // ✅ Show success alert using SweetAlert
+  // Optional lightweight front-end validation
+  const isValid = () => {
+    const { name, email, subject, message } = formData;
+    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
       Swal.fire({
-        icon: 'success',
-        title: 'Message envoyé !',
-        text: 'Votre message a été envoyé avec succès.',
-        confirmButtonColor: '#3085d6',
+        icon: "warning",
+        title: "Champs requis",
+        text: "Veuillez remplir tous les champs.",
+        confirmButtonColor: "#3085d6",
+      });
+      return false;
+    }
+    // basic email format check
+    if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
+      Swal.fire({
+        icon: "warning",
+        title: "Email invalide",
+        text: "Veuillez saisir une adresse e-mail valide.",
+        confirmButtonColor: "#3085d6",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!isValid()) return;
+
+    setLoading(true);
+    try {
+      // ✅ Use the unified base URL (production → backend-two)
+      await axios.post(`${getBaseUrl()}/api/contact`, formData, {
+        headers: { "Content-Type": "application/json" },
+        // withCredentials: false, // keep default unless you use cookies
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Message envoyé !",
+        text: "Votre message a été envoyé avec succès.",
+        confirmButtonColor: "#3085d6",
         showCloseButton: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
       });
 
-      // 🔄 Reset form after success
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+      // Reset form
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
-      // ❌ Show error alert on failure
+      // Log details for debugging in DevTools
+      console.error("Contact POST failed:", {
+        status: err?.response?.status,
+        data: err?.response?.data,
+        headers: err?.response?.headers,
+        message: err?.message,
+      });
+
+      // Friendly error
+      const backendMsg =
+        err?.response?.data?.message ||
+        "Une erreur est survenue. Veuillez réessayer.";
       Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: 'Une erreur est survenue. Veuillez réessayer.',
-        confirmButtonColor: '#d33',
+        icon: "error",
+        title: "Erreur",
+        text: backendMsg,
+        confirmButtonColor: "#d33",
         showCloseButton: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
       });
     } finally {
-      // ✅ Always stop loading at the end
       setLoading(false);
     }
   };
 
   return (
     <div className="contact-form-container">
-      {/* 🏷️ Title and description */}
+      {/* Title & description */}
       <h3 className="contact-title">Envoyez-nous un message</h3>
       <p className="contact-description">
-        Pour toute demande de rendez-vous, question ou conseil optique, notre équipe vous répond rapidement.
+        Pour toute demande de rendez-vous, question ou conseil optique, notre
+        équipe vous répond rapidement.
       </p>
 
-      {/* 📝 Contact Form */}
-      <form onSubmit={handleSubmit} className="contact-form">
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="contact-form" noValidate>
         <input
           type="text"
           name="name"
@@ -80,6 +115,7 @@ const ContactForm = () => {
           value={formData.name}
           onChange={handleChange}
           required
+          autoComplete="name"
         />
         <input
           type="email"
@@ -88,6 +124,7 @@ const ContactForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
+          autoComplete="email"
         />
         <input
           type="text"
@@ -103,9 +140,9 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           required
+          rows={6}
         />
 
-        {/* 🚀 Submit button with loading feedback */}
         <button type="submit" disabled={loading}>
           {loading ? "Envoi en cours..." : "Envoyer le message"}
         </button>
