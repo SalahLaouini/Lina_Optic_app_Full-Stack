@@ -83,15 +83,16 @@ const Contact = () => {
       {/* =============================== 🗺️ Map Location Block =============================== */}
       <div className="contact-map-wrapper">
         <iframe
-          title="Lina Optic – Carte Manouba"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=10.0895%2C36.8090%2C10.0935%2C36.8125&layer=mapnik&marker=36.8109%2C10.0915"
-          loading="lazy"
-          width="100%"
-          height="400"
-          frameBorder="0"
-          allowFullScreen
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+  title="Lina Optic – Carte Manouba"
+  src="https://www.openstreetmap.org/export/embed.html?mlat=36.8109&mlon=10.0915&zoom=17&layer=mapnik"
+  loading="lazy"
+  width="100%"
+  height="400"
+  frameBorder="0"
+  allowFullScreen
+  referrerPolicy="no-referrer-when-downgrade"
+/>
+
       </div>
     </div>
   );
