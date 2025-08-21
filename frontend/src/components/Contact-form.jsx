@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import getBaseUrl from "../utils/baseUrl"; // ⬅️ adjust path if needed
+import getBaseUrl from "../utils/baseURL"; // ⬅️ matches your actual file name
 
 const ContactForm = () => {
   // Form state
