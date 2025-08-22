@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react"; 
+import React, { useState, useMemo, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductCard from "./products/ProductCard";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
@@ -38,7 +38,6 @@ const Products = () => {
     data: products = [],
     isLoading,
     isFetching,
-    refetch,
   } = useGetAllProductsQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
@@ -52,12 +51,8 @@ const Products = () => {
 
   // 🌐 Auto-select category/subCategory from URL
   useEffect(() => {
-    if (categoryFromUrl) {
-      setSelectedCategory([categoryFromUrl]);
-    }
-    if (subCategoryFromUrl) {
-      setSelectedSubCategory([subCategoryFromUrl]);
-    }
+    if (categoryFromUrl) setSelectedCategory([categoryFromUrl]);
+    if (subCategoryFromUrl) setSelectedSubCategory([subCategoryFromUrl]);
   }, [categoryFromUrl, subCategoryFromUrl]);
 
   // 🧠 Get unique brand list for selector
@@ -74,17 +69,12 @@ const Products = () => {
     if (selectedCategory.length && !selectedCategory.includes("All")) {
       result = result.filter((p) => selectedCategory.includes(p.mainCategory));
     }
-
     if (selectedSubCategory.length && !selectedSubCategory.includes("All")) {
-      result = result.filter((p) =>
-        selectedSubCategory.includes(p.subCategory)
-      );
+      result = result.filter((p) => selectedSubCategory.includes(p.subCategory));
     }
-
     if (selectedBrand.length && !selectedBrand.includes("All")) {
       result = result.filter((p) => selectedBrand.includes(p.brand));
     }
-
     if (selectedFrameType.length && !selectedFrameType.includes("All")) {
       result = result.filter((p) => selectedFrameType.includes(p.frameType));
     }
@@ -129,26 +119,34 @@ const Products = () => {
   }
 
   return (
-    <div className="our-sellers">
+    <div className="our-sellers" role="main">
       <Helmet>
-        <title>Lunettes opticien & Lunettes Optic en Tunisie | Produits | Lina Optic</title>
+        {/* ✅ Title assez long et descriptif */}
+        <title>
+          Catalogue : Lunettes optiques, solaires & lentilles en Tunisie | Lina Optic
+        </title>
+
+        {/* ✅ Meta description 150–160 caractères */}
         <meta
           name="description"
-          content="Découvrez nos lunettes optiques, solaires et lentilles en Tunisie. Filtrez par catégorie, marque et type de cadre chez Lina Optic."
+          content="Explorez notre catalogue de lunettes optiques, solaires et lentilles en Tunisie. Filtrez par catégorie, marque et type de cadre. Qualité et service Lina Optic."
         />
+
         <meta
           name="keywords"
           content="Lunettes opticien, Lunettes Optic, Optic Tunisie, Lunettes solaires opticien, Opticien Tunisie, Catalogue lunettes Tunisie"
         />
-        {/* ✅ Canonical to help indexing */}
+
+        {/* ✅ Canonical */}
         <link rel="canonical" href="https://www.linaoptic.com/products" />
       </Helmet>
 
-      <h2 className="animated-products-title">Nos Produits</h2>
+      {/* ✅ H1 unique pour la page */}
+      <h1 className="animated-products-title">Nos Produits – Lina Optic</h1>
 
       <div className="products-page-wrapper">
         {/* 🔍 Left Filter Sidebar */}
-        <div className="selectors-wrapper-left">
+        <div className="selectors-wrapper-left" aria-label="Filtres produits">
           {/* Row: Catégorie + Sous-catégorie */}
           <div className="selector-row">
             <SelectorsPageProducts
