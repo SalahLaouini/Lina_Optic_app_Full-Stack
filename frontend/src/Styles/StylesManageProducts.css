@@ -70,3 +70,17 @@
     height: 56px;
   }
 }
+
+/* Make sure table borders/spacing look good inside the scroll box */
+.products-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* (Already handled with Tailwind, but safe if styles get overridden) */
+.products-table thead th {
+  position: sticky;
+  top: 0;
+  background: #e5e7eb; /* gray-200 */
+  z-index: 10;
+}
